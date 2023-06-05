@@ -5,9 +5,9 @@ Things to decide:
 - [X] workflow, branching, PRs, code ownership
 - [X] layout / structure
 - [ ] packaging (setuptools, pyproject, poetry)
-- [ ] documentation / readthedocs
-- [ ] docstrings
-- [ ] linters, style guide
+- [X] documentation / readthedocs
+- [X] docstrings
+- [X] linters, style guide
 - [ ] logos
 - [ ] tests
 - [ ] continuous integration / github actions
