@@ -24,3 +24,5 @@ myPackageRepoName
 └── tests                      ┐
    └── ...                     ┘ Package tests
 ```
+
+Note that you need to have `__init__.py` under `src/myPackage/` and every sub-directory.
