@@ -2,4 +2,9 @@ site_name: ccn-template
 site_url: https://ccn-template.com/
 nav:
     - Home: index.md
+    - Workflow: notes/00-workflow.md
+    - Structure: notes/01-structure.md
+    - Packaging: notes/03-documentation.md
+    - Docstrings: notes/04-docstrings.md
+    - Linters: notes/05-linters-style.md
     - About: about.md
