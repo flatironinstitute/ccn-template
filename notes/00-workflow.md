@@ -1,5 +1,9 @@
 # Workflow
 
+![Workflow](gitflow.jpg)
+
+
+
 Use git flow: `main` branch is for releases, `development` for development, both should be stable (all tests must pass), but development branch gives an extra for fixing bugs.
 
 1. Read [CaImAn CONTRIBUTING](https://github.com/flatironinstitute/CaImAn/blob/dev/CONTRIBUTING.md)
