@@ -11,9 +11,9 @@ Things to decide:
 - [X] documentation / readthedocs
 - [X] docstrings
 - [X] linters, style guide
-- [ ] logos
-- [ ] tests
-- [ ] continuous integration / github actions
-- [ ] coverage
+- [X] logos
+- [X] tests
+- [X] continuous integration / github actions
+- [X] coverage
 
 ![FOOT](CCN-letterFoot.png)
