@@ -1,1 +1,9 @@
-
+name: build-ccn-template
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: 0 0 * * 0     # weekly
+  pull_request:
+    branches:
+    - main
+    - development
