@@ -1,12 +1,16 @@
+# -*- coding: utf-8 -*-
 """
-Example from [mkdocs-gallery](https://github.com/smarie/mkdocs-gallery/blob/main/docs/examples/local_module.py)
+A short Python script
+=====================
 
-Local module
-============
-
-This example demonstrates how local modules can be imported.
-This module is imported in the example
-[Plotting the exponential function](./plot_1_exp.md).
+This demonstrates an example `.py` file that is not executed when gallery is
+generated (see
+[Parsing and executing examples via matching patterns](https://sphinx-gallery.github.io/stable/configuration.html#build-pattern))
+but nevertheless gets included as an example. Note that no output is captured as this file is not executed.
 """
 
-N = 100
+# Code source: Óscar Nájera
+# License: BSD 3 clause
+
+from __future__ import print_function
+print([i for i in range(10)])

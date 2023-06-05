@@ -1,4 +1,4 @@
-# Gallery of Examples
+# Examples
 
 This page consists of the 'General example' gallery and a sub-gallery,
 'No image output examples'. This sub-gallery is generated from a
@@ -7,11 +7,10 @@ this gallery looks like this:
 
 ```
 examples/           # base 'Gallery of Examples' directory
-├── README.txt
+├── README.md
+├── test_example.py
+├── test_myClass.py
 ├── <.py files>
-└── no_output/      # generates the 'No image output examples' sub-gallery
-    ├── README.txt
-    └── <.py files>
 ```
 
 ## General examples

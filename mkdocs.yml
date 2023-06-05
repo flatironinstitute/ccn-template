@@ -1,5 +1,5 @@
 site_name: ccn-template
-site_url: https://ccn-template.com/
+repo_url: https://github.com/flatironinstitute/ccn-template
 nav:
     - Home: index.md
     - Tutorials: generated/gallery
@@ -13,19 +13,18 @@ nav:
     - CI: notes/07-ci.md
     - Data: notes/08-data.md
     - Open Source: notes/09-open-source.md
+    - Contributing: CONTRIBUTING.md
     - About: about.md
 theme:
   name: 'material'
   palette:
-    primary: 'blue'
-  # features:
-  #   - navigation.tabs
-repo_url: https://github.com/flatironinstitute/ccn-template
+    primary: 'light blue'
+    features:
+      - navigation.tabs
 plugins:
   - mkdocstrings
   - gallery:
        examples_dirs: docs/examples          # path to your example scripts
        gallery_dirs: docs/generated/gallery  # where to save generated gallery
   #     # ... (other options)
-
   - search  # make sure the search plugin is still enabled
