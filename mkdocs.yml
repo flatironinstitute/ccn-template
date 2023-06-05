@@ -1,1 +1,5 @@
-
+site_name: ccn-template
+site_url: https://ccn-template.com/
+nav:
+    - Home: index.md
+    - About: about.md
