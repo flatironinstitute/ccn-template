@@ -7,6 +7,7 @@ nav:
     - Packaging: notes/03-documentation.md
     - Docstrings: notes/04-docstrings.md
     - Linters: notes/05-linters-style.md
+    - generated/gallery
     - About: about.md
 theme:
   name: 'material'
