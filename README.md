@@ -1,3 +1,5 @@
+![LOGO](CCN-logo-wText.png)
+
 # ccn-template
 Template repository for CCN software projects
 
