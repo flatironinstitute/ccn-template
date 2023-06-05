@@ -8,3 +8,13 @@ nav:
     - Docstrings: notes/04-docstrings.md
     - Linters: notes/05-linters-style.md
     - About: about.md
+theme:
+  name: 'material'
+  palette:
+    primary: 'blue'
+  # features:
+  #   - navigation.tabs
+repo_url: https://github.com/flatironinstitute/ccn-template
+plugins:
+  - search
+  - mkdocstrings
