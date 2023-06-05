@@ -1,5 +1,6 @@
 ![LOGO](CCN-logo-wText.png)
 
+
 # ccn-template
 Template repository for CCN software projects
 
@@ -14,3 +15,5 @@ Things to decide:
 - [ ] tests
 - [ ] continuous integration / github actions
 - [ ] coverage
+
+![FOOT](CCN-letterFoot.png)
