@@ -13,5 +13,19 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+dependencies = [
+    'mkdocs',
+    'mkdocstrings[python]',
+    'mkdocs_section_index',
+    'mkdocs_gen_files',
+    'mkdocs_literate_nav',
+    'mkdocs-gallery',
+    'pillow'
+]
+
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ccn_template"]

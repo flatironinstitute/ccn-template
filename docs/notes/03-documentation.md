@@ -7,3 +7,6 @@ Prefer [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/generated/tutori
 Rationale:
 - MkDocs supports markdown out-of-the-box, which is much better than ReST
 - readthedocs supports building documentation for PRs, which is very helpful.
+
+## Automatic code references
+Automatic code referencing was setup following the recipe detailed [here](https://mkdocstrings.github.io/recipes/).
