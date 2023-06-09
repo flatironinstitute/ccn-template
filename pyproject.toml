@@ -33,3 +33,7 @@ dependencies = [
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["ccn_template"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=ccn_template"
+testpaths = ["tests"]
