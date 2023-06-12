@@ -7,3 +7,44 @@ Prefer [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/generated/tutori
 Rationale:
 - MkDocs supports markdown out-of-the-box, which is much better than ReST
 - readthedocs supports building documentation for PRs, which is very helpful.
+
+## Readthedocs setup instructions
+
+The root directory of this repo contains the `.readthedocs.yml` file, which
+includes the configuration to work with
+[readthedocs.org](https://readthedocs.org/).
+
+By default it:
+- works with mkdocs, using the `mkdocs.yml` config file.
+- builds on ubuntu 22.04 and python 3.10
+- installs the package using the `pip install .[docs]` command (which includes
+  the optional `docs` dependencies specified in `pyproject.toml`)
+- builds the and pdf formats.
+
+However, you need to link your repo to readthedocs in order for this config file
+to do anything. The following only needs to be done once per project (the
+following is up to date as of 2023-06-12).
+1. [Connect](https://docs.readthedocs.io/en/stable/guides/connecting-git-account.html)
+   your readthedocs account to github.
+2. Sign in and go to [your projects](https://readthedocs.org/dashboard/). Click
+   on "Import a project." If you have linked your accounts correctly, you should
+   see a list of projects, both from your personal account and any organizations
+   you are a part of. If you can find your project here, you're probably done!
+   Otherwise, see the following steps.
+3. If you don't see a given organization (e.g., `billbrod` can't see any
+   `flatironinstitute` projects), then click on "Import manually" and enter the
+   required information, clicking "Edit advanced project options." and entering
+   "main" as the default branch name.
+4. It will show you an example `.readthedocs.yaml` file, but we'll be using the
+   one from this template repo, so you can ignore it (see
+   [readthedocs](https://docs.readthedocs.io/en/stable/config-file/v2.html)
+   documentation for more info on what can be included).
+5. Fill out the extra details, selecting `Mkdocs` as the documentation type,
+   `Python` as the programming language, and the github repo as the project
+   homepage.
+6. You will then most likely have to manually configure the webhook, following
+   [these
+   instructions](https://docs.readthedocs.io/en/latest/guides/setup/git-repo-manual.html#provider-specific-instructions)
+7. Afterwards, go to your project, then `Admin > Advanced Settings` and check
+   the "Build pull requests for this project" checkbox.
+8. You should be good to go!
