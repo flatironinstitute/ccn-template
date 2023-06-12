@@ -3,6 +3,7 @@
 
 [![ci-ccn-template](https://github.com/flatironinstitute/ccn-template/actions/workflows/ci.yml/badge.svg)](https://github.com/flatironinstitute/ccn-template/actions/workflows/main.yml)
 # ccn-template
+
 Template repository for CCN software projects
 
 Things to decide:
