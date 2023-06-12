@@ -43,7 +43,7 @@ following is up to date as of 2023-06-12).
    see a list of projects, both from your personal account and any organizations
    you are a part of. If you can find your project here, you're probably done!
    Otherwise, see the following steps.
-3. If you don't see a given organization, you can return to step 2. and try it
+3. If you don't see a given organization, you can return to step 2. and try to
    grant readthedocs access or click on "Import manually" and enter the required
    information, clicking "Edit advanced project options." and entering "main" as
    the default branch name.
