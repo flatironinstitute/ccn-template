@@ -29,15 +29,24 @@ following is up to date as of 2023-06-12).
 
 1. [Connect](https://docs.readthedocs.io/en/stable/guides/connecting-git-account.html)
    your readthedocs account to github.
+2. Optional, but recommended: If your repo lives under a github organization,
+   you also need to give readthedocs.org permission to access it. To do so, on
+   github go to `Settings > Applications > Authorized OAuth Apps` and click on
+   "Read the Docs Community". At the bottom of the page, you should see the
+   "Organization access" section with a list of your organizations. If your
+   organization has a check mark, you've already given readthedocs access!
+   Otherise, click on "Request" or "Grant" (depending on your access level).
+   Once readthedocs has access, proceed to the next step (note that you don't
+   need to give readthedocs access, but it will make things easier).
 2. Sign in and go to [your projects](https://readthedocs.org/dashboard/). Click
    on "Import a project." If you have linked your accounts correctly, you should
    see a list of projects, both from your personal account and any organizations
    you are a part of. If you can find your project here, you're probably done!
    Otherwise, see the following steps.
-3. If you don't see a given organization (e.g., `billbrod` can't see any
-   `flatironinstitute` projects), then click on "Import manually" and enter the
-   required information, clicking "Edit advanced project options." and entering
-   "main" as the default branch name.
+3. If you don't see a given organization, you can return to step 2. and try it
+   grant readthedocs access or click on "Import manually" and enter the required
+   information, clicking "Edit advanced project options." and entering "main" as
+   the default branch name.
 4. It will show you an example `.readthedocs.yaml` file, but we'll be using the
    one from this template repo, so you can ignore it (see
    [readthedocs](https://docs.readthedocs.io/en/stable/config-file/v2.html)
@@ -50,4 +59,7 @@ following is up to date as of 2023-06-12).
    instructions](https://docs.readthedocs.io/en/latest/guides/setup/git-repo-manual.html#provider-specific-instructions)
 7. Afterwards, go to your project, then `Admin > Advanced Settings` and check
    the "Build pull requests for this project" checkbox.
-8. You should be good to go!
+8. You should be good to go! If you had to manually add the github repo,
+   readthedocs probably cannot post back to pull requests, so check on your
+   builds (`https://readthedocs.org/projects/ccn-template/builds/`, replacing
+   `ccn-template` with your project name) and post the link yourself!
