@@ -24,3 +24,4 @@ python:
 
 formats:
   - pdf
+  - htmlzip

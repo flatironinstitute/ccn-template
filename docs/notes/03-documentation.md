@@ -21,7 +21,9 @@ By default it:
 - builds on ubuntu 22.04 and python 3.10
 - installs the package using the `pip install .[docs]` command (which includes
   the optional `docs` dependencies specified in `pyproject.toml`)
-- builds the and pdf formats.
+- builds the html and pdf formats (though note that the extra formats [won't be
+  built](https://docs.readthedocs.io/en/stable/guides/pull-requests.html#limitations)
+  on PR builds, which we'll enable below).
 
 However, you need to link your repo to readthedocs in order for this config file
 to do anything. The following only needs to be done once per project (the
@@ -63,3 +65,10 @@ following is up to date as of 2023-06-12).
    readthedocs probably cannot post back to pull requests, so check on your
    builds (`https://readthedocs.org/projects/ccn-template/builds/`, replacing
    `ccn-template` with your project name) and post the link yourself!
+
+If you were unable to give readthedocs access to your github documentation, you
+can use readthedocs' [preview github
+action](https://github.com/readthedocs/actions) to post the docs link to the PR.
+Copy over the `.github/workflows/pull-request-link.yml` file from this repo and
+change the `project-slug` value at the bottom to match your project's slug
+(which can be found on the right side of your project page on readthedocs).
