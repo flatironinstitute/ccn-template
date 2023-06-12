@@ -5,6 +5,7 @@ Two decisions need to be made: generator and host. We'll use [MkDocs](https://ww
 Prefer [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/generated/tutorials/plot_parse/#download_links) to .ipynb notebooks for examples/tutorials, because it's easier to version control and review, while still being downloadable / runnable on binder as a notebook. They should live under the root directory: `examples/` (not `docs/examples/`). However, `ipynb` files can still be included (though outputs should probably be cleared), because they're easier for contributors to write and work better with interactive visualization libraries -- look into both of these. See [this](https://docs.readthedocs.io/en/stable/guides/jupyter.html) readthedocs page.
 
 Rationale:
+
 - MkDocs supports markdown out-of-the-box, which is much better than ReST
 - readthedocs supports building documentation for PRs, which is very helpful.
 
@@ -15,6 +16,7 @@ includes the configuration to work with
 [readthedocs.org](https://readthedocs.org/).
 
 By default it:
+
 - works with mkdocs, using the `mkdocs.yml` config file.
 - builds on ubuntu 22.04 and python 3.10
 - installs the package using the `pip install .[docs]` command (which includes
@@ -24,6 +26,7 @@ By default it:
 However, you need to link your repo to readthedocs in order for this config file
 to do anything. The following only needs to be done once per project (the
 following is up to date as of 2023-06-12).
+
 1. [Connect](https://docs.readthedocs.io/en/stable/guides/connecting-git-account.html)
    your readthedocs account to github.
 2. Sign in and go to [your projects](https://readthedocs.org/dashboard/). Click
