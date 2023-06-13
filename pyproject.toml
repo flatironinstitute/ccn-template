@@ -73,6 +73,15 @@ dependencies = [
 where = ["src"]
 include = ["ccn_template"]
 
+# addopts: Additional command-line options for pytest.
+# In this example, "--cov=ccn_template" is specified as an option.
+# It indicates that code coverage should be measured for the "ccn_template" folder.
+# The "--cov" option is used to enable coverage measurement in pytest.
+
+# testpaths: Specifies the directories to search for tests.
+# In this example, the "tests" folder is specified as the test directory.
+# pytest will search for tests within this folder when running the tests.
+
 [tool.pytest.ini_options]
 addopts = "--cov=ccn_template"
 testpaths = ["tests"]
