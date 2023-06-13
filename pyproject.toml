@@ -1,3 +1,24 @@
+# [build-system] section in pyproject.toml
+# Defines the build system requirements for the project.
+# Specifies the dependencies and build backend used for building and packaging.
+
+# List of required dependencies for the build system.
+# Ensure that setuptools and setuptools-scm packages are installed.
+
+# setuptools-scm
+# A Python package that integrates with setuptools and source code management (scm) systems.
+# It simplifies versioning and release management by dynamically extracting version information from the scm system.
+
+# How it works:
+# 1. It examines the source code repository to determine the current version using scm metadata.
+# 2. It generates a version number based on the available scm information (e.g., latest Git tag, commit hash).
+# 3. During package distribution, setuptools-scm retrieves the version number and incorporates it into the built package.
+
+# By using setuptools-scm, you can automate the versioning process and ensure accurate versioning based on the scm history.
+# This eliminates the need for manual version specification in your project's configuration files.
+
+# It will be automatically used by setuptools for managing versioning during package distribution.
+
 [build-system]
 requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
