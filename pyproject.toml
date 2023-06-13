@@ -37,6 +37,24 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+# Dependency description:
+# mkdocstrings[python]: A MkDocs plugin that generates documentation from docstrings in Python code.
+# It extracts information from docstrings of functions, classes, modules, and other objects.
+
+# mkdocs_section_index: A MkDocs plugin that adds a navigation section index to the documentation sidebar.
+# It enhances navigation by providing an index of the sections in the documentation.
+
+# mkdocs_gen_files: A MkDocs plugin that allows the generation of additional files during the documentation build process.
+# It provides functionality to dynamically generate files that can be included in the documentation.
+
+# mkdocs_literate_nav: A MkDocs plugin that enhances the navigation sidebar by providing collapsible sections.
+# It improves the readability and organization of the documentation by allowing users to collapse and expand sections.
+
+# mkdocs-gallery: A MkDocs plugin that enables the creation of image galleries in the documentation.
+# It provides functionality for creating and displaying image galleries with customizable options.
+
+# pillow: The Python Imaging Library (PIL) fork known as Pillow.
+# It is used for image processing tasks, such as resizing, cropping, and modifying images, which can be utilized in the documentation.
 
 dependencies = [
     'mkdocs',
