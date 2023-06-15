@@ -37,7 +37,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-# Dependency description:
+# Optional dependency description:
 # mkdocstrings[python]: A MkDocs plugin that generates documentation from docstrings in Python code.
 # It extracts information from docstrings of functions, classes, modules, and other objects.
 
@@ -56,7 +56,8 @@ classifiers = [
 # pillow: The Python Imaging Library (PIL) fork known as Pillow.
 # It is used for image processing tasks, such as resizing, cropping, and modifying images, which can be utilized in the documentation.
 
-dependencies = [
+[project.optional-dependencies]
+docs = [
     'mkdocs',
     'mkdocstrings[python]',
     'mkdocs_section_index',
