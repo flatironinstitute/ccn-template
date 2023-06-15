@@ -45,10 +45,10 @@ following is up to date as of 2023-06-12).
    see a list of projects, both from your personal account and any organizations
    you are a part of. If you can find your project here, you're probably done!
    Otherwise, see the following steps.
-3. If you don't see a given organization, you can return to step 2. and try to
-   grant readthedocs access or click on "Import manually" and enter the required
-   information, clicking "Edit advanced project options." and entering "main" as
-   the default branch name.
+3. If you don't see repos from a given organization, you can return to step 2.
+   and try to grant readthedocs access or click on "Import manually" and enter
+   the required information, clicking "Edit advanced project options." and
+   entering "main" as the default branch name.
 4. It will show you an example `.readthedocs.yaml` file, but we'll be using the
    one from this template repo, so you can ignore it (see
    [readthedocs](https://docs.readthedocs.io/en/stable/config-file/v2.html)
@@ -62,13 +62,11 @@ following is up to date as of 2023-06-12).
 7. Afterwards, go to your project, then `Admin > Advanced Settings` and check
    the "Build pull requests for this project" checkbox.
 8. You should be good to go! If you had to manually add the github repo,
-   readthedocs probably cannot post back to pull requests, so check on your
+   readthedocs might not be able to post back to pull requests, so check on your
    builds (`https://readthedocs.org/projects/ccn-template/builds/`, replacing
-   `ccn-template` with your project name) and post the link yourself!
+   `ccn-template` with your project name) and post the link yourself! If you
+   were able to give readthedocs access in step 2, it should be able to post.
 
 If you were unable to give readthedocs access to your github documentation, you
 can use readthedocs' [preview github
 action](https://github.com/readthedocs/actions) to post the docs link to the PR.
-Copy over the `.github/workflows/pull-request-link.yml` file from this repo and
-change the `project-slug` value at the bottom to match your project's slug
-(which can be found on the right side of your project page on readthedocs).
