@@ -9,7 +9,21 @@ Rationale:
 - MkDocs supports markdown out-of-the-box, which is much better than ReST
 - readthedocs supports building documentation for PRs, which is very helpful.
 
+## Build documentation locally
+
+To build the documentation on your local machine, install the necessary
+dependencies with `pip install -e .[docs]`, and then run `mkdocs serve`. This
+builds and serves the documentation, which you can then view in your browser at
+`localhost:8000` (by default, change the port by e.g., `mkdocs serve -a
+localhost:8001`).
+
 ## Readthedocs setup instructions
+
+If you use our included `.readthedocs.yml` and follow the steps below, the
+documentation will be built automatically and live at
+`https://ccn-template.readthedocs.org/`. The documentation will be built off the
+`main` branch, and also (temporarily) for each pull request, with the link to
+the pull request documentation posted back as a status check on that PR.
 
 The root directory of this repo contains the `.readthedocs.yml` file, which
 includes the configuration to work with
