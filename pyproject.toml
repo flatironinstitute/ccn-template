@@ -79,9 +79,9 @@ dev = [
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
 
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["ccn_template"]
+[tool.setuptools.packages.find] # configure the package discovery behavior for setuptools
+where = ["src"] #  specifies the root directory to start searching for packages
+include = ["ccn_template"] # specifies patterns for including specific packages or modules
 
 # addopts: Additional command-line options for pytest.
 # In this example, "--cov=ccn_template" is specified as an option.
