@@ -31,6 +31,5 @@ nav:
     - CI: notes/06-ci.md
     - Data: notes/07-data.md
     - Open Source: notes/08-open-source.md
-    - Contributing: CONTRIBUTING.md
     - Code References: reference/
     - About: about.md
