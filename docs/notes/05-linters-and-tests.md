@@ -131,14 +131,7 @@ We recommend using [tox](https://tox.wiki/en/latest/) to run tests and linters. 
 
 #### Installation
 
-To install Tox as a developer dependency, add the following lines to the `pyproject.toml` file in your base repository folder:
-
-```markdown
-[project.optional-dependencies]
-dev = [
-    "tox"
-]
-```
+Install `tox` from pypi: `pip install tox`.
 
 #### Configuration
 
@@ -154,7 +147,7 @@ Here is a description of the initialization settings:
 
 ##### [testenv] section
 
-- `deps`: Defines the dependencies required for the test environments.
+- `extras = dev`: The tox environment will be installed with `pip install .[dev]`, installing the optional `dev` dependencies specified in `pyproject.toml` section `[project.optional-dependencies]`. By using this (instead of `deps`), we allow the individual tests / linters to be run either separately or within tox and avoid having to list them in both `tox.ini` and `pyproject.toml`.
     
 - `commands`: Specifies the commands to be executed for testing and linting within each test environment.
 
