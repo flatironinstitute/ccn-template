@@ -28,11 +28,11 @@ nav:
     - Packaging: notes/02-packaging.md
     - Documentation: notes/03-documentation.md
     - Docstrings: notes/04-docstrings.md
-    - Linters: notes/05-linters-style.md
+    - Linters: notes/05-linters-and-tests.md
     - Tests: notes/06-tests.md
-    - CI: notes/07-ci.md
-    - Data: notes/08-data.md
-    - Open Source: notes/09-open-source.md
+    - CI: notes/06-ci.md
+    - Data: notes/07-data.md
+    - Open Source: notes/08-open-source.md
     - Contributing: CONTRIBUTING.md
     - Code References: reference/
     - About: about.md

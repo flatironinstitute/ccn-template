@@ -66,6 +66,9 @@ docs = [
     'mkdocs-gallery',
     'pillow'
 ]
+dev = [
+   "tox"
+]
 
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
