@@ -28,8 +28,7 @@ nav:
     - Packaging: notes/02-packaging.md
     - Documentation: notes/03-documentation.md
     - Docstrings: notes/04-docstrings.md
-    - Linters: notes/05-linters-and-tests.md
-    - Tests: notes/06-tests.md
+    - Linters and Tests: notes/05-linters-and-tests.md
     - CI: notes/06-ci.md
     - Data: notes/07-data.md
     - Open Source: notes/08-open-source.md
