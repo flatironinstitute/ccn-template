@@ -16,9 +16,9 @@ In order to automate code referencing, you may follow these steps:
 
 1. Check that the project follows the [recommended folder structure](01-structure.md#package-structure).
 
-2. Copy/paste the **docs/gen_ref_paegs.py** in your project **docs/** folder. The script will be run each time mkdocs builds the documentation and will create automatically a **reference/** folder.
+2. Copy/paste the `docs/gen_ref_pages.py` in your project `docs/` folder. The script will be run each time mkdocs builds the documentation and will create automatically a `reference/` folder.
 
-3. Make sure that the following plug-ins are listed in your **mkdocs.yml** file:
+3. Make sure that the following plug-ins are listed in your `mkdocs.yml` file:
 
     ```yaml
     plugins:
