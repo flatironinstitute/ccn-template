@@ -1,13 +1,20 @@
 """"Hello World!" python function
 """
 
-
 def hello_world_func(word):
     """
-    Hello World function with no
-    :param word: (string)
-        A word
-    :return:
+    Prints a greeting message with the specified word.
+
+    Parameters
+    ----------
+    word : str
+        The word to include in the greeting message.
+
+    Returns
+    -------
+    None
+        This function doesn't return anything.
+
     """
     print(f"Hello {word}!")
     return

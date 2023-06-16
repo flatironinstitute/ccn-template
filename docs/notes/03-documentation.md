@@ -46,4 +46,3 @@ For a more detailed description of the automatic referencing setup, see [here](h
 **Note on literate navigation:**
 
 In the context of MkDocs, the "literate-nav" plugin enhances the navigation capabilities of your documentation site by allowing you to define the site's navigation structure in a separate Markdown file (often named SUMMARY.md). This file acts as a table of contents or navigation index for your documentation.
-
