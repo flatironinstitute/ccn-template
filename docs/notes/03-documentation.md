@@ -1,36 +1,74 @@
 # Documentation
 
-Two decisions need to be made: generator and host. We'll use [MkDocs](https://www.mkdocs.org/) (instead of sphinx) for generator and [readthedocs](https://readthedocs.org/) (instead of github pages) for host.
+Two decisions are fundamental in this context: the generator and the host. For the generator, we will utilize [MkDocs](https://www.mkdocs.org/), as an alternative to Sphinx. As for the host, we opt for [readthedocs](https://readthedocs.org/) over GitHub Pages. 
 
-Prefer [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/generated/tutorials/plot_parse/#download_links) to .ipynb notebooks for examples/tutorials, because it's easier to version control and review, while still being downloadable / runnable on binder as a notebook. They should live under the root directory: `examples/` (not `docs/examples/`). However, `ipynb` files can still be included (though outputs should probably be cleared), because they're easier for contributors to write and work better with interactive visualization libraries -- look into both of these. See [this](https://docs.readthedocs.io/en/stable/guides/jupyter.html) readthedocs page.
+We suggest using [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/generated/tutorials/plot_parse/#download_links) instead of .ipynb notebooks for tutorials or examples. This is because mkdocs-gallery is easier to review and control versions while still providing the convenience of being downloadable or runnable on Binder as a notebook. These files should reside under the root directory: `examples/` (not `docs/examples/`). However, you can still include `ipynb` files (after clearing the outputs), as they are simpler for contributors to write and pair well with interactive visualization libraries. You can explore both options further [here](https://docs.readthedocs.io/en/stable/guides/jupyter.html) on the readthedocs page.
 
-Rationale:
-- MkDocs supports markdown out-of-the-box, which is much better than ReST
-- readthedocs supports building documentation for PRs, which is very helpful.
+Reasoning behind these choices:
+- MkDocs supports Markdown out-of-the-box, which is a more straightforward option than ReST.
+- readthedocs enables building documentation for PRs, which is highly beneficial.
 
-## Automatic code referencing
+## Code References
 
-As your project gets more complex, you may need to automate the process of generating the code references. 
+The [mkdocstrings](https://mkdocstrings.github.io/) plugin for MkDocs allows you to generate the documentation directly from your Python code's docstrings, given they comply with certain standards (refer to the [docstrings](04-docstrings.md) note). 
 
-In order to automate code referencing, you may follow these steps:
+Follow the steps below for the standard procedure:
 
-1. Check that the project follows the [recommended folder structure](01-structure.md#package-structure).
+1. Add the `mkdocstrings` plugin by modifying the **mkdocs.yml** `plugins` list.
+```yaml
+plugins:                         
+    - mkdocstrings
+    ...
+```
 
-2. Copy/paste the `docs/gen_ref_pages.py` in your project `docs/` folder. The script will be run each time mkdocs builds the documentation and will create automatically a `reference/` folder.
+2. Create a **docs/reference.md** file.
 
-3. Make sure that the following plug-ins are listed in your `mkdocs.yml` file:
+3. Automatically generate documentation for a script in your repository by editing the **reference.md**
+file as follows,
+```markdown
+packagename:::your_script.py
+packaegname:::your_other_script.py
+...
+```
 
-    ```yaml
-    plugins:
-        - search                           # make sure the search plugin is still enabled
-        - mkdocstrings                     # plugin for generating documentation from Python docstrings
-        - gen-files:
-            scripts:
-                - docs/gen_ref_pages.py     # script for generating reference pages
-        - literate-nav:
-              nav_file: docs/SUMMARY.md     # navigation file for literate navigation
-        - section-index                    # plugin for creating section index
-    ```
+4. Incorporate the **reference.md** into your documentation's navigation structure by updating the **mkdocs.yml**,
+```yaml
+nav:
+    - Home: index.md
+    - Tutorials: generated/gallery
+    - Workflow: notes/00-workflow.md
+    - Structure: notes/01-structure.md
+    - Packaging: notes/02-packaging.md
+    - Documentation: notes/03-documentation.md
+    - Docstrings: notes/04-docstrings.md
+    - Linters and Tests: notes/05-linters-and-tests.md
+    - CI: notes/06-ci.md
+    - Data: notes/07-data.md
+    - Open Source: notes/08-open-source.md
+    - Code References: reference.md
+```
+## Automatic Code Referencing
+
+As your project grows in complexity, you might need to automate the code referencing process instead of manually 
+adding new scripts references.
+
+Here's the procedure:
+
+1. Ensure your project follows the recommended folder structure.
+
+2. Copy and paste the `docs/gen_ref_pages.py` into your project's `docs/` directory. The script will run each time
+mkdocs builds the documentation and will automatically create a `reference/` directory.
+
+3. Confirm that the following plugins are listed in your `mkdocs.yml` file:
+
+```yaml
+plugins:
+    - search                           # keep the search plugin enabled
+    - mkdocstrings                     # plugin for generating documentation from Python docstrings
+    - gen-files:
+        scripts:
+            - docs/gen_ref_pages.py
+```
 
 4. Add the **Code Reference** page to your documentation by adding it to the *nav* of the *mkdocs.yml*.
 
@@ -41,11 +79,27 @@ In order to automate code referencing, you may follow these steps:
                                     # it has to look for a SUMMARY.md file in that folder.
     ``` 
     
-For a more detailed description of the automatic referencing setup, see [here](https://mkdocstrings.github.io/recipes/).
+For a more comprehensive overview of the automatic referencing setup, refer to [this guide](https://mkdocstrings.github.io/recipes/).
 
 **Note on literate navigation:**
 
-In the context of MkDocs, the "literate-nav" plugin enhances the navigation capabilities of your documentation site by allowing you to define the site's navigation structure in a separate Markdown file (often named SUMMARY.md). 
-This file acts as a table of contents or navigation index for your documentation.
-When the repo is set up with the automatic referencing procedure detailed above, **SUMMARY.md** is created temporarily 
-at build time by the **docs/gen_ref_pages.py** script, and then removed.
+With the "literate-nav" plugin in MkDocs, you can enhance your documentation site's navigation by defining the navigation structure in a separate Markdown file, typically named **SUMMARY.md**. This file essentially serves as a table of contents or a navigation index for your documentation. When the repository is configured with the automatic referencing procedure detailed above, **SUMMARY.md** is temporarily created at build time by the **docs/gen_ref_pages.py** script and is subsequently removed.
+
+### Considerations on Code Referencing
+
+To summarize, automating code referencing offers the following benefits:
+
+1. **Automatic Generation:** There's no need for manual creation of links or copying of code snippets into your 
+documentation. The documentation remains up-to-date with each build.
+
+2. **Dynamic Documentation:** As your code and its associated docstrings are updated, the documentation is regenerated.
+Changes in script name or code structure do not affect your documentation, which stays up-to-date.
+
+3. **Consistent Formatting:** The code reference structure is determined by the **docs/gen_ref_pages.py** script, 
+ensuring consistency.
+
+However, there's a caveat to the automatic generation process: it makes the process of code referencing more 
+challenging to customize. To customize the code references layout, you would need to modify the **gen_ref_pages.py** 
+script. By contrast, manual referencing allows for easy customization of specific modules' layout by editing the 
+**references.md** file.
+
