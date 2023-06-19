@@ -49,7 +49,7 @@ nav:
 ```
 ## Automatic Code Referencing
 
-As your project grows in complexity, you might need to automate the code referencing process instead of manually 
+As your project grows in complexity, you might need to automate the code referencing process rather than manually 
 adding new scripts references.
 
 Here's the procedure:
