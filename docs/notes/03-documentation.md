@@ -100,6 +100,7 @@ ensuring consistency.
 
 However, there's a caveat to the automatic generation process: it makes the process of code referencing more 
 challenging to customize. To customize the code references layout, you would need to modify the **gen_ref_pages.py** 
-script. By contrast, manual referencing allows for easy customization of specific modules' layout by editing the 
-**references.md** file.
+script. On the other hand, manual referencing provides the flexibility to easily customize the layout of specific 
+modules by editing the references.md file or by creating a dedicated markdown file for each module and making 
+customizations there.
 
