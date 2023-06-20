@@ -34,7 +34,8 @@ By default it:
 - works with mkdocs, using the `mkdocs.yml` config file.
 - builds on ubuntu 22.04 and python 3.10
 - installs the package using the `pip install .[docs]` command (which includes
-  the optional `docs` dependencies specified in `pyproject.toml`)
+  the optional `docs` dependencies specified in `pyproject.toml`, as described
+  in the note on [packaging](02-packaging.md)).
 - builds the html and pdf formats (though note that the extra formats [won't be
   built](https://docs.readthedocs.io/en/stable/guides/pull-requests.html#limitations)
   on PR builds, which we'll enable below).
