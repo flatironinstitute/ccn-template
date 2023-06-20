@@ -18,7 +18,7 @@ Follow the steps below for the standard procedure:
 ```yaml
 plugins:                         
     - mkdocstrings
-    ...
+    # other plugins...
 ```
 
 2. Create a **docs/reference.md** file.
@@ -27,7 +27,7 @@ plugins:
 file as follows,
 ```markdown
 packagename:::your_script.py
-packaegname:::your_other_script.py
+packagename:::your_other_script.py
 ...
 ```
 
