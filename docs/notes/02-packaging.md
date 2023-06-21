@@ -11,7 +11,7 @@ We follow the advice of
 [pyopensci](https://www.pyopensci.org/python-package-guide/package-structure-code/pyproject-toml-python-package-metadata.html)
 and use `pyproject.toml` to specify build requirements and metadata (rather than
 `setup.py`), a template for which is included here. Metadata includes the
-authors, a brief desccription, homepage url, etc. which will all be rendered in
+authors, a brief description, homepage url, etc. which will all be rendered in
 the PyPI sidebar, for example. Build requirements include, at a minimum, the
 dependencies, and potentially other installation instructions to pass to `pip`.
 
