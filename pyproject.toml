@@ -1,24 +1,4 @@
-# [build-system] section in pyproject.toml
-# Defines the build system requirements for the project.
-# Specifies the dependencies and build backend used for building and packaging.
-
-# List of required dependencies for the build system.
-# Ensure that setuptools and setuptools-scm packages are installed.
-
-# setuptools-scm
-# A Python package that integrates with setuptools and source code management (scm) systems.
-# It simplifies versioning and release management by dynamically extracting version information from the scm system.
-
-# How it works:
-# 1. It examines the source code repository to determine the current version using scm metadata.
-# 2. It generates a version number based on the available scm information (e.g., latest Git tag, commit hash).
-# 3. During package distribution, setuptools-scm retrieves the version number and incorporates it into the built package.
-
-# By using setuptools-scm, you can automate the versioning process and ensure accurate versioning based on the scm history.
-# This eliminates the need for manual version specification in your project's configuration files.
-
-# It will be automatically used by setuptools for managing versioning during package distribution.
-
+# Define the build system requirements for the project.
 [build-system]
 requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
@@ -37,25 +17,7 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-# Optional dependency description:
-# mkdocstrings[python]: A MkDocs plugin that generates documentation from docstrings in Python code.
-# It extracts information from docstrings of functions, classes, modules, and other objects.
-
-# mkdocs_section_index: A MkDocs plugin that adds a navigation section index to the documentation sidebar.
-# It enhances navigation by providing an index of the sections in the documentation.
-
-# mkdocs_gen_files: A MkDocs plugin that allows the generation of additional files during the documentation build process.
-# It provides functionality to dynamically generate files that can be included in the documentation.
-
-# mkdocs_literate_nav: A MkDocs plugin that enhances the navigation sidebar by providing collapsible sections.
-# It improves the readability and organization of the documentation by allowing users to collapse and expand sections.
-
-# mkdocs-gallery: A MkDocs plugin that enables the creation of image galleries in the documentation.
-# It provides functionality for creating and displaying image galleries with customizable options.
-
-# pillow: The Python Imaging Library (PIL) fork known as Pillow.
-# It is used for image processing tasks, such as resizing, cropping, and modifying images, which can be utilized in the documentation.
-
+# Optional dependencies for documentation [docs] and testing/linting [dev]:
 [project.optional-dependencies]
 docs = [
     'mkdocs',
@@ -79,20 +41,12 @@ dev = [
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
 
-
-[tool.setuptools.packages.find] # configure the package discovery behavior for setuptools
+# Configure the package discovery behavior for setuptools
+[tool.setuptools.packages.find]
 where = ["src"] #  specifies the root directory to start searching for packages
 include = ["ccn_template"] # specifies patterns for including specific packages or modules
 
 # addopts: Additional command-line options for pytest.
-# In this example, "--cov=ccn_template" is specified as an option.
-# It indicates that code coverage should be measured for the "ccn_template" folder.
-# The "--cov" option is used to enable coverage measurement in pytest.
-
-# testpaths: Specifies the directories to search for tests.
-# In this example, the "tests" folder is specified as the test directory.
-# pytest will search for tests within this folder when running the tests.
-
 [tool.pytest.ini_options]
 addopts = "--cov=ccn_template"
 testpaths = ["tests"]
