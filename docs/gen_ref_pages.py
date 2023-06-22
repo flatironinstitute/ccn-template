@@ -1,4 +1,7 @@
-"""Generate the code reference pages and navigation."""
+"""
+Generate the code reference pages and navigation.
+See: https://mkdocstrings.github.io/recipes/#generate-pages-on-the-fly
+"""
 
 from pathlib import Path
 
