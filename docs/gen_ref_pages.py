@@ -1,6 +1,14 @@
 """
 Generate the code reference pages and navigation.
-See: https://mkdocstrings.github.io/recipes/#generate-pages-on-the-fly
+
+The script is run by mkdocs at build time and performs the following tasks:
+
+- Generates a "reference/" folder
+- Generates a temporary "SUMMARY.md" file
+
+This allows the code reference to be built using literate navigation.
+
+For more details, refer to the [mkdocstrings recipes](https://mkdocstrings.github.io/recipes/#generate-pages-on-the-fly).
 """
 
 from pathlib import Path
