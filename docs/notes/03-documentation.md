@@ -126,7 +126,7 @@ Automating code referencing offers multiple benefits:
 
 1. **Automatic Generation:** Eliminates the need for manual creation of links or copying of code snippets into your documentation. The documentation stays current with each build.
 2. **Dynamic Documentation:** Your documentation is regenerated as your code and docstrings are updated. Changes in script names or code structure do not affect your documentation's accuracy.
-3. **Consistent Formatting:** The **docs/gen_ref_pages.py** script determines the code reference structure, ensuring consistency across the documentation.
+3. **Consistent Formatting:** The code reference structure is determined by the `docs/gen_ref_pages.py` script, ensuring consistency across the documentation.
 
-However, automatic generation also presents a caveat: it makes customizing the code referencing process more challenging. If you need to modify the layout of code references, you'll need to alter the **gen_ref_pages.py** script. In contrast, manual referencing offers the flexibility to customize the layout of specific modules by editing the references.md file or creating a distinct markdown file for each module and customizing it as needed.
+However, automatic generation also presents a caveat: it makes customizing the code referencing process more challenging. If you need to modify the layout of code references, you'll need to alter the **gen_ref_pages.py** script. In contrast, manual referencing offers the flexibility to customize the layout of specific modules by editing the `references.md` file or creating a distinct markdown file for each module and customizing it as needed.
 
