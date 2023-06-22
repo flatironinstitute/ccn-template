@@ -79,6 +79,7 @@ dev = [
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
 
+
 [tool.setuptools.packages.find] # configure the package discovery behavior for setuptools
 where = ["src"] #  specifies the root directory to start searching for packages
 include = ["ccn_template"] # specifies patterns for including specific packages or modules
