@@ -136,7 +136,7 @@ TODO: Also need to have guidance on [build tools](https://www.pyopensci.org/pyth
 
 
 4. `[tool.pytest.ini_options]`: The additional command-line options for pytest. These options will be added by default when running `pytest`. You can provide the following details:
-   - `addopts`: It defines which options are passed to pytest, run `pytest --help` for the list of available options.
+   - `addopts`: It defines which options are passed to pytest, run `pytest --help` for a complete list of available options.
    - `testpaths`: It specifies the directories to search for tests.
    
     **Syntax Example:**
