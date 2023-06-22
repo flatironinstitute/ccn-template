@@ -113,7 +113,7 @@ that have been executed during the execution of the tests. You can perform test 
 pytest --cov=packagename test/
 ```
 
-You should aim to have as complete coverage as possible.
+You should aim to have as complete coverage as possible, we recommend at least 70% coverage.
 
 ### Additional Resources
 
