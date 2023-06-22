@@ -113,6 +113,18 @@ pytest --cov=packagename test/
 
 You should aim to have as complete coverage as possible.
 
+### Additional Resources
+
+The topic of function testing is broad and it is an active area of research. Here are some potentially interesting resources:
+
+#### Websites
+1. https://www.fuzzingbook.org/#A-Textbook-for-Paper,-Screen,-and-Keyboard
+2. https://www.softwaretestinghelp.com/
+
+#### Books
+1. ["Clean Code: A Handbook of Agile Software Craftsmanship" by Robert C. Martin](https://www.goodreads.com/book/show/3735293-clean-code)
+2. ["Test Driven Development: By Example" by Kent Beck](https://www.goodreads.com/book/show/387190.Test_Driven_Development)
+
 ## Running Tests and Linters with Tox
 
 We recommend using [tox](https://tox.wiki/en/latest/) to run tests and linters. Tox is a command-line tool that automates and simplifies testing and development workflows in Python projects. It provides a consistent and reproducible environment for testing and running code across multiple configurations.
