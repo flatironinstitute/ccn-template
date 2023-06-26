@@ -16,7 +16,7 @@ A linter is a tool that analyzes source code and provides feedback on potential 
 
 ### Linters Requirements
 
-We require the following linters to be run on the code and included as checks in continuous integration:
+We require the following linters to be run on the code and included as checks in continuous integration. See [packaging note](02-packaging.md) notes for further description of these.
 
 - [black](https://black.readthedocs.io/en/stable/)
 - [flake8](https://flake8.pycqa.org/en/latest/): Run command `flake8 src/ccn-template/ --max-complexity 10`
