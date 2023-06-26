@@ -118,24 +118,41 @@ pytest --cov=packagename test/
 
 You should aim to have as complete coverage as possible, we recommend at least 70% coverage.
 
-### Test figure generation with `matplotlib`
+### Test Figure Generation with `matplotlib`
 
-If your are testing visualization tools that generate figures through `matplotlib`, you need to set the `matplotlib` backend to `agg`. This can be done by adding the following lines of code at the beginning of your test script,
+If you are testing visualization tools that generate figures using `matplotlib`, it's important to set the `matplotlib` backend 
+to `'agg'` and close all generated figures before your test function returns.
+
+The `'agg'` backend is specifically designed for static figure rendering and does not initiate an event loop like the `'Qt5Agg'` 
+or `'TkAgg'` backends. Consequently, it ensures that the execution of `pytest` is not frozen when figures are generated.
+
+Closing all figures guarantees that the test will terminate when the function returns.
+
+Consider the following example to guide your testing script:
 
 ```python
-
 import matplotlib
-matplotlib.set("agg")
+matplotlib.use("agg")
+
+def test_visualization_tools():
+    # ... Perform some plotting
+    plt.close('all')
+
 
 ```
+
+In the example above, the `matplotlib.use("agg")` statement sets the backend to `'agg'`, ensuring that figures are rendered statically. In the `test_visualization_tools()` function, you can perform your plotting operations and subsequently close all figures using `plt.close('all')`.
+
+By adhering to these practices, you can effectively test figure generation with `matplotlib` while ensuring that your testing process remains uninterrupted and terminates successfully.
+
 
 ### Additional Resources
 
 The topic of function testing is broad and it is an active area of research. Here are some potentially interesting resources:
 
 #### Websites
-1. https://www.fuzzingbook.org/#A-Textbook-for-Paper,-Screen,-and-Keyboard
-2. https://www.softwaretestinghelp.com/
+1. [https://www.fuzzingbook.org/#A-Textbook-for-Paper,-Screen,-and-Keyboard](https://www.fuzzingbook.org/#A-Textbook-for-Paper,-Screen,-and-Keyboard)
+2. [https://www.softwaretestinghelp.com/](https://www.softwaretestinghelp.com/)
 
 #### Books
 1. ["Clean Code: A Handbook of Agile Software Craftsmanship" by Robert C. Martin](https://www.goodreads.com/book/show/3735293-clean-code)
