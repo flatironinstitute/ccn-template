@@ -194,7 +194,7 @@ Here is a description of the initialization settings:
 
 - `commands`: commands run only in `envname`. `envname` must be listed in `envlist`
 
-### Running tests and linters through tox
+### Running tox
 
 To run tests and linters using Tox, execute the following command within your Python environment from the repository base directory:
 
