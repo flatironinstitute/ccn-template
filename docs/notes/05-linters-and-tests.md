@@ -118,6 +118,17 @@ pytest --cov=packagename test/
 
 You should aim to have as complete coverage as possible, we recommend at least 70% coverage.
 
+### Test figure generation with `matplotlib`
+
+If your are testing visualization tools that generate figures through `matplotlib`, you need to set the `matplotlib` backend to `agg`. This can be done by adding the following lines of code at the beginning of your test script,
+
+```python
+
+import matplotlib
+matplotlib.set("agg")
+
+```
+
 ### Additional Resources
 
 The topic of function testing is broad and it is an active area of research. Here are some potentially interesting resources:
