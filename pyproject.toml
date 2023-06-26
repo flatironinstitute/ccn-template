@@ -26,7 +26,6 @@ write_to = "src/ccn_template/version.py"
 version_scheme = 'python-simplified-semver'
 local_scheme = 'no-local-version'
 
-
 [project.optional-dependencies]
 docs = [
     "mkdocs",
