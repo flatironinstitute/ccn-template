@@ -88,7 +88,9 @@ action](https://github.com/readthedocs/actions) to post the docs link to the PR.
 
 ## Generating Documentation From Docstrings 
 
-Leverage the [mkdocstrings](https://mkdocstrings.github.io/) plugin for MkDocs to generate documentation directly from your Python code's docstrings. Be sure that your docstrings adhere to the necessary standards. Check the [docstrings](04-docstrings.md) note for reference. With the [autodoc](https://mkdocstrings.github.io/usage/) syntax of `mkdocstrings` you can manually add code documentation to your markdown files for smaller projects.
+Reference documentation consists of technical descriptions of the code and how to use it. This material is rarely read (unlike tutorials or examples), and is instead consulted when users need clarity on specific issues. Fortunately, you've already been writing reference documentation in the form of docstrings. Here, we describe how to automatically construct the reference documentation from these docstrings, using several plugins to `mkdocs`. The following requries that your docstrings adhere to one of the docstring standards, see the [docstrings](04-docstrings.md) note for more details.
+
+Specifically, we will automate the generation of this material using the [mkdocstrings](https://mkdocstrings.github.io/) and [literate-nav](https://mkdocstrings.github.io/) plugins: `mkdocstrings` will generate the docstring documentation and `literate-nav` generates the navigation structure.
 
 For larger, more complex projects, consider automating the code referencing process with the `mkdocstrings` and `literate-nav` plugins. The `literate-nav` plugin lets you define the navigation structure in a separate Markdown file, often named `SUMMARY.md`, enhancing your documentation site's navigation. This file essentially works as a table of contents or a navigation index for your documentation. 
 
