@@ -85,10 +85,13 @@ algorithms converge, and that the result is always close to a local minimum up t
 #### Regression Testing:
 
 Regression testing is conducted to verify that recent changes or modifications to the code-base have not introduced
- new bugs or issues and have not affected existing functionality. 
-    - **Target:** Previously tested features
-    - **Goal:** Ensure that the function and modules still work as expected after a change to the code-base.
-    - **Example:** Setting up a continuous integration workflow that automatically re-run all implemented tests when a pull request is opened.
+ new bugs or issues and have not affected existing functionality.
+
+- **Target:** Previously tested features
+
+- **Goal:** Ensure that the function and modules still work as expected after a change to the code-base.
+
+- **Example:** Setting up a continuous integration workflow that automatically re-run all implemented tests when a pull request is opened.
 
 
 ### Test Requirements
