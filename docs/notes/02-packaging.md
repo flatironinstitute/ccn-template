@@ -72,5 +72,9 @@ This action gets triggered on every github release and does the following:
 
 ### Using this yourself
 
-When using this yourself, copy over the `deploy.yml` file to `.github/workflows`, update the `environment:url` to point to your project and remove the `test` subdomain, as noted in the comments. This action may also require you to already have an account on the [PyPI](https://pypi.org/) and [Test PyPI](https://test.pypi.org/), but I'm not sure.
+To use this action yourself:
+
+1. Ensure `deploy.yml` is in your `.github/workflows` directory.
+2. Create an account on both [PyPI](https://pypi.org/) and [Test PyPI](https://test.pypi.org/). 
+3. Follow the steps on the [pypi docs](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) to create a PyPI project with a trusted publisher. **NOTE:** do this for both PyPI and Test PyPI -- we'll be using both!
 
