@@ -162,3 +162,6 @@ cython_debug/
 # this file is written automatically by setuptools_scm and should not be
 # tracked
 src/ccn_template/version.py
+
+# mkdocs generated documentation
+docs/generated/

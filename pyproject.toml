@@ -23,3 +23,13 @@ requires = ["setuptools", "setuptools_scm[toml]"]
 
 [tool.setuptools_scm]
 write_to = "src/ccn_template/version.py"
+
+[project.optional-dependencies]
+docs = [
+    "mkdocs",
+    "mkdocstrings[python]",
+    "mkdocs_section_index",
+    "mkdocs_gen_files",
+    "mkdocs_literate_nav",
+    "mkdocs-gallery",
+]
