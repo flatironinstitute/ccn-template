@@ -11,14 +11,7 @@ jobs:
   deploy:
     name: Upload release to Test PyPI
     runs-on: ubuntu-latest
-    environment:
-      # change this to pypi
-      name: testpypi
-      # change the final part of this url to the name of your pypi project,
-      # which should match the `name` field in your pyproject.toml, and, when
-      # you're ready to go, remove the `test` subdomain from the beginning of
-      # the url
-      url: https://test.pypi.org/p/ccn_template
+    environment: pypi
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
