@@ -161,7 +161,7 @@ Here is a description of the initialization settings:
 
 ##### [testenv] section
 
-- `extras = dev`: The tox environment will be installed with `pip install .[dev]`, installing the optional `dev` dependencies specified in `pyproject.toml` section `[project.optional-dependencies]`. By using this (instead of `deps`), we allow the individual tests / linters to be run either separately or within tox and avoid having to list them in both `tox.ini` and `pyproject.toml`.
+- `extras = dev`: The tox environment will be installed with `pip install .[dev]`, installing the optional `dev` dependencies specified in `pyproject.toml` section `[project.optional-dependencies]`. By using this (instead of `deps`), we allow the individual tests / linters to be run either separately or within tox and avoid having to list them in both `tox.ini` and `pyproject.toml`. See the [packaging note](02-packaging.md) for some more details on optional dependencies.
     
 - `commands`: Specifies the commands to be executed for testing and linting within each test environment.
 
