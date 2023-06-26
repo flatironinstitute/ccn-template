@@ -122,7 +122,7 @@ nav:
   - Code References: reference/
 ``` 
 
-# Considerations on Code Referencing
+## Why automate?
 
 Automating code referencing offers multiple benefits:
 
