@@ -1,0 +1,32 @@
+name: deploy
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    name: Upload release to Test PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      # change the final part of this url to the name of your pypi project,
+      # which should match the `name` field in your pyproject.toml, and, when
+      # you're ready to go, remove the `test` subdomain from the beginning of
+      # the url
+      url: https://test.pypi.org/p/ccn_template
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+      - name: Build package
+        run: python -m build --outdir dist/ --sdist
+      - name: Publish package to test pypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
