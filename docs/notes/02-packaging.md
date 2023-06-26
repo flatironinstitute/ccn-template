@@ -47,8 +47,6 @@ testing notes](05-linters-and-tests.md) for more info.
 
 ## Build
 
-TODO: Also need to have guidance on [build tools](https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html)
-
 ## pyproject.toml Specifications
 
 1. `[build-system]` defines the build system requirements for the project, specifying the dependencies and build backend used for building and packaging. You can provide the following details:
