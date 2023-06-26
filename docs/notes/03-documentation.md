@@ -86,7 +86,7 @@ If you were unable to give readthedocs access to your github documentation, you
 can use readthedocs' [preview github
 action](https://github.com/readthedocs/actions) to post the docs link to the PR.
 
-## Generating Documentation From Docstrings 
+## Generating Reference Documentation From Docstrings 
 
 Reference documentation consists of technical descriptions of the code and how to use it. This material is rarely read (unlike tutorials or examples), and is instead consulted when users need clarity on specific issues. Fortunately, you've already been writing reference documentation in the form of docstrings. Here, we describe how to automatically construct the reference documentation from these docstrings, using several plugins to `mkdocs`. The following requries that your docstrings adhere to one of the docstring standards, see the [docstrings](04-docstrings.md) note for more details.
 
