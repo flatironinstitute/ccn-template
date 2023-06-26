@@ -99,10 +99,10 @@ TODO: Also need to have guidance on [build tools](https://www.pyopensci.org/pyth
    - `dev`: Developer dependencies.
      1. [black](https://black.readthedocs.io/en/latest/): Code formatter. It automatically formats your Python code according to the Black code style.
      2. [isort](https://isort.readthedocs.io/en/latest/): Import sorter. It automatically organizes and sorts import statements in your Python code.
-     3. [pip-tools](https://pip-tools.readthedocs.io/en/latest/): Dependency management. It helps manage and synchronize project dependencies, allowing you to generate and maintain requirements.txt or pipfile.lock files.
-     4. [pytest](https://docs.pytest.org/en/7.3.x/): Testing framework. It is a popular testing framework for Python that allows you to write and execute tests easily.
-     5. [flake8](https://flake8.pycqa.org/en/latest/): Code linter. It checks your Python code for style, potential errors, and adherence to coding conventions.
-     6. [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/): Test coverage plugin for pytest. It integrates test coverage measurement into the pytest framework, providing coverage reports and analysis for your tests.
+     and maintain requirements.txt or pipfile.lock files.
+     3. [pytest](https://docs.pytest.org/en/7.3.x/): Testing framework. It is a popular testing framework for Python that allows you to write and execute tests easily.
+     4. [flake8](https://flake8.pycqa.org/en/latest/): Code linter. It checks your Python code for style, potential errors, and adherence to coding conventions.
+     5. [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/): Test coverage plugin for pytest. It integrates test coverage measurement into the pytest framework, providing coverage reports and analysis for your tests.
 
     **Syntax example:**
     ```toml
