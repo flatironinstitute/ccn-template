@@ -99,7 +99,7 @@ testing notes](05-linters-and-tests.md) for more info.
      - [mkdocs_gen_files](https://oprypin.github.io/mkdocs-gen-files/): A MkDocs plugin that allows the generation of additional files during the documentation build process. It provides functionality to dynamically generate files that can be included in the documentation.
      - [mkdocs_literate_nav](https://oprypin.github.io/mkdocs-literate-nav/): A MkDocs plugin that enhances the navigation sidebar by providing collapsible sections. It improves the readability and organization of the documentation by allowing users to collapse and expand sections.
      - [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/): A MkDocs plugin that enables the creation of example galleries in the documentation. These examples are written as python scripts that are converted to jupyter notebooks when the docs are built. This combines the advantages of plain scripts (easy to version control and review) and notebooks (easy for users to run and experiment with).
-     - [pillow](https://pillow.readthedocs.io/en/stable/): The Python Imaging Library (PIL) fork known as Pillow. It is used for image processing tasks, such as resizing, cropping, and modifying images, which can be utilized in the documentation.
+
 
    - `dev`: Developer dependencies.
      - [black](https://black.readthedocs.io/en/latest/): Code formatter. It automatically formats your Python code according to the Black code style.
