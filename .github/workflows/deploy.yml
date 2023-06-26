@@ -30,7 +30,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install build
       - name: Build package
-        run: python -m build --outdir dist/ --sdist
+        run: |
+          pip install setuptools_scm
+          SETUPTOOLS_SCM_DEBUG=1 python -m build --outdir dist/ --sdist
       - name: test setuptools_scm
         run: python -m setuptools_scm
       # - name: Publish package to test pypi
