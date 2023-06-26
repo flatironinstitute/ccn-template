@@ -16,6 +16,9 @@ jobs:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - uses: actions/checkout@v3
+        # this is necessary for setuptools_scm to work properly with github
+        # actions, see https://github.com/pypa/setuptools_scm/issues/480 and
+        # https://stackoverflow.com/a/68959339
         with:
           fetch-depth: 0
       - name: Set up Python
@@ -28,7 +31,9 @@ jobs:
           pip install build
       - name: Build package
         run: python -m build --outdir dist/ --sdist
-      - name: Publish package to test pypi
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
+      - name: test setuptools_scm
+        run: python -m setuptools_scm
+      # - name: Publish package to test pypi
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   with:
+          # repository-url: https://test.pypi.org/legacy/
