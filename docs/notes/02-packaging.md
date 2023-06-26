@@ -47,7 +47,7 @@ testing notes](05-linters-and-tests.md) for more info.
 
 ## Build
 
-## pyproject.toml Specifications
+## pyproject.toml Configurations
 
 ### 1. `[build-system]` 
 
