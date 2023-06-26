@@ -31,7 +31,6 @@ docs = [
 dev = [
     "black",                        # Code formatter
     "isort",                        # Import sorter
-    "pip-tools",                    # Dependency management
     "pytest",                       # Testing framework
     "flake8",                       # Code linter
     "pytest-cov",                   # Test coverage plugin for pytest
