@@ -124,7 +124,7 @@ nav:
 
 ## Why automate?
 
-Automating code referencing offers multiple benefits:
+Automating this procedure offers multiple benefits:
 
 1. **Automatic Generation:** Eliminates the need for manual creation of links or copying of code snippets into your documentation. The documentation stays current with each build.
 2. **Dynamic Documentation:** Your documentation is regenerated as your code and docstrings are updated. Changes in script names or code structure do not affect your documentation's accuracy.
