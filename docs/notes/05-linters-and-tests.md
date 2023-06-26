@@ -185,18 +185,18 @@ file in this template repository as a starting point for setting up your tests a
 
 Here is a description of the initialization settings:
 
-##### [tox] section
+##### 1. [tox]
 
 - `isolated_build = True`: Enables isolated build mode, which creates separate virtual environments for each test environment. This helps ensure clean and isolated testing environments.
 - `envlist = env1,env2,...`: Specifies the names of test environments to be executed.
 
-##### [testenv] section
+##### 2. [testenv]
 
 - `extras = dev`: The tox environment will be installed with `pip install .[dev]`, installing the optional `dev` dependencies specified in `pyproject.toml` section `[project.optional-dependencies]`. By using this (instead of `deps`), we allow the individual tests / linters to be run either separately or within tox and avoid having to list them in both `tox.ini` and `pyproject.toml`. See the [packaging note](02-packaging.md) for some more details on optional dependencies.
     
 - `commands`: Specifies the commands to be executed for testing and linting within each test environment.
 
-##### [tox.ini] section
+##### 3. [tox.ini]
 
 - `[gh-actions]`: Provides configuration for GitHub Actions.
     - `python`: Maps the Python versions specified in GitHub Actions to the corresponding test environments in `envlist`.
@@ -205,7 +205,7 @@ Here is a description of the initialization settings:
     - `max-line-length = `: Sets the maximum line length for code.
     - `exclude`: Specifies the file and directory patterns to be excluded from linting.
 
-##### [testenv:envname] section
+##### 4. [testenv:envname]
 
 - `deps`: dependency that are specific to `envname`. `envname` must be listed in `envlist`
 
