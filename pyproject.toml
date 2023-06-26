@@ -1,6 +1,8 @@
 [project]
-version = "0.0.1"
 name = "ccn_template"
+# we use this instead of setting version, so that setuptools_scm can dynamically
+# set the version number. see notes for details
+dynamic = ["version"]
 authors = [
   { name="Billy Broderick", email="author@example.com" },
 ]
@@ -15,3 +17,9 @@ classifiers = [
 
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
+
+[build-system]
+requires = ["setuptools", "setuptools_scm[toml]"]
+
+[tool.setuptools_scm]
+write_to = "src/ccn_template/version.py"
