@@ -76,5 +76,6 @@ To use this action yourself:
 
 1. Ensure `deploy.yml` is in your `.github/workflows` directory.
 2. Create an account on both [PyPI](https://pypi.org/) and [Test PyPI](https://test.pypi.org/). 
-3. Follow the steps on the [pypi docs](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) to create a PyPI project with a trusted publisher. **NOTE:** do this for both PyPI and Test PyPI -- we'll be using both!
+3. Follow the steps on the [pypi docs](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) to create a PyPI project with a trusted publisher. **NOTE:** do this for both PyPI and Test PyPI --- we'll be using both!
+    - Set the workflow name to `deploy.yml` and environment name to `pypi`.
 
