@@ -49,7 +49,9 @@ testing notes](05-linters-and-tests.md) for more info.
 
 ## pyproject.toml Specifications
 
-1. `[build-system]` defines the build system requirements for the project, specifying the dependencies and build backend used for building and packaging. You can provide the following details:
+### `[build-system]` 
+
+`[build-system]` defines the build system requirements for the project, specifying the dependencies and build backend used for building and packaging. You can provide the following details:
     - `requires`: A list of required dependencies for the build system.
     - `build-backend`: The build backend.
 
@@ -70,6 +72,7 @@ testing notes](05-linters-and-tests.md) for more info.
    **Additional Informations on `setuptools-scm`:**
 
    How it works:
+
    1. It examines the source code repository to determine the current version using scm metadata.
    2. It simplifies versioning and release management by dynamically extracting version information from the scm system.
    3. During package distribution, setuptools-scm retrieves the version number and incorporates it into the built package.
@@ -82,7 +85,9 @@ testing notes](05-linters-and-tests.md) for more info.
 
    - [poetry](https://python-poetry.org/) or [flit](https://pypi.org/project/flit/)
 
-2. `[project.optional-dependencies]` specifies the optional dependencies for documentation and testing/linting.
+### `[project.optional-dependencies]`
+
+`[project.optional-dependencies]` specifies the optional dependencies for documentation and testing/linting.
 
    **We recommend the following:**
 
@@ -117,23 +122,10 @@ testing notes](05-linters-and-tests.md) for more info.
       ]
     ```
 
+### `[tool.pytest.ini_options]` 
 
-3. `[tool.setuptools.packages.find]`: configure the package discovery behavior for setuptools. The find function of setuptools locates and returns the packages within a Python project. You can provide the following details:
-   - `where`: Specifies the root directory to start searching for packages.
-   - `include`: Specifies patterns for including specific packages or modules.
-    
-    **Syntax Example:**
-    ```toml
-    [tool.setuptools.packages.find]
-    where = ["src"]
-    include = ["ccn_template"]
-    ```
-   **Additional Informations:**
-    
-    See the `setuptools` [documentation](https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#finding-simple-packages) for detailed informations.
+`[tool.pytest.ini_options]`: The additional command-line options for pytest. These options will be added by default when running `pytest`. You can provide the following details:
 
-
-4. `[tool.pytest.ini_options]`: The additional command-line options for pytest. These options will be added by default when running `pytest`. You can provide the following details:
    - `addopts`: It defines which options are passed to pytest, run `pytest --help` for a complete list of available options.
    - `testpaths`: It specifies the directories to search for tests.
    
@@ -143,6 +135,7 @@ testing notes](05-linters-and-tests.md) for more info.
     addopts = "--cov=ccn_template"
     testpaths = ["tests"]
     ```
+
    **Additional Informations:**
     
    See the dedicated `pytest` [documentation](https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref) for detailed informations.
