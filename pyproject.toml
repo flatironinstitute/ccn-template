@@ -1,6 +1,6 @@
 [project]
-name = "ccn-template"
 version = "0.0.1"
+name = "ccn_template"
 authors = [
   { name="Billy Broderick", email="author@example.com" },
 ]
