@@ -92,7 +92,6 @@ Reference documentation consists of technical descriptions of the code and how t
 
 Specifically, we will automate the generation of this material using the [mkdocstrings](https://mkdocstrings.github.io/) and [literate-nav](https://mkdocstrings.github.io/) plugins: `mkdocstrings` will generate the docstring documentation and `literate-nav` generates the navigation structure.
 
-For larger, more complex projects, consider automating the code referencing process with the `mkdocstrings` and `literate-nav` plugins. The `literate-nav` plugin lets you define the navigation structure in a separate Markdown file, often named `SUMMARY.md`, enhancing your documentation site's navigation. This file essentially works as a table of contents or a navigation index for your documentation. 
 
 
 For an in-depth understanding of the following procedure, refer to the `mkdocstrings` [recipes](https://mkdocstrings.github.io/recipes/).
