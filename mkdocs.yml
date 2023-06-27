@@ -1,5 +1,24 @@
 site_name: ccn-template
 repo_url: https://github.com/flatironinstitute/ccn-template
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'light blue'
+    features:
+      - navigation.tabs
+plugins:
+    - search                           # make sure the search plugin is still enabled
+    - mkdocstrings                     # plugin for generating documentation from Python docstrings
+    - gen-files:
+        scripts:
+            - docs/gen_ref_pages.py     # script for generating reference pages
+    - literate-nav:
+          nav_file: docs/SUMMARY.md     # navigation file for literate navigation
+    - section-index                    # plugin for creating section index
+    - gallery:
+        examples_dirs: docs/examples          # path to your example scripts
+        gallery_dirs: docs/generated/gallery  # where to save generated gallery
 nav:
     - Home: index.md
     - Tutorials: generated/gallery
@@ -8,23 +27,9 @@ nav:
     - Packaging: notes/02-packaging.md
     - Documentation: notes/03-documentation.md
     - Docstrings: notes/04-docstrings.md
-    - Linters: notes/05-linters-style.md
-    - Tests: notes/06-tests.md
-    - CI: notes/07-ci.md
-    - Data: notes/08-data.md
-    - Open Source: notes/09-open-source.md
-    - Contributing: CONTRIBUTING.md
+    - Linters and Tests: notes/05-linters-and-tests.md
+    - CI: notes/06-ci.md
+    - Data: notes/07-data.md
+    - Open Source: notes/08-open-source.md
+    - Code References: reference/
     - About: about.md
-theme:
-  name: 'material'
-  palette:
-    primary: 'light blue'
-    features:
-      - navigation.tabs
-plugins:
-  - mkdocstrings
-  - gallery:
-       examples_dirs: docs/examples          # path to your example scripts
-       gallery_dirs: docs/generated/gallery  # where to save generated gallery
-  #     # ... (other options)
-  - search  # make sure the search plugin is still enabled

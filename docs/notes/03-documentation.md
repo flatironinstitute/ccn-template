@@ -1,8 +1,8 @@
 # Documentation
 
-Two decisions need to be made: generator and host. We'll use [MkDocs](https://www.mkdocs.org/) (instead of sphinx) for generator and [readthedocs](https://readthedocs.org/) (instead of github pages) for host.
+Two decisions are fundamental in this context: the generator and the host. For the generator, we will utilize [MkDocs](https://www.mkdocs.org/), as an alternative to Sphinx. As for the host, we opt for [readthedocs](https://readthedocs.org/) over GitHub Pages. 
 
-Prefer [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/generated/tutorials/plot_parse/#download_links) to .ipynb notebooks for examples/tutorials, because it's easier to version control and review, while still being downloadable / runnable on binder as a notebook. They should live under the root directory: `examples/` (not `docs/examples/`). However, `ipynb` files can still be included (though outputs should probably be cleared), because they're easier for contributors to write and work better with interactive visualization libraries -- look into both of these. See [this](https://docs.readthedocs.io/en/stable/guides/jupyter.html) readthedocs page.
+We suggest using [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/generated/tutorials/plot_parse/#download_links) instead of .ipynb notebooks for tutorials or examples. This is because `.py` files ( which `mkdocs-gallery` uses) are easier to review and control versions while still providing the convenience of being downloadable or runnable on Binder as a notebook. These files should reside in a directory within the root directory: `examples/` (not `docs/examples/`). However, you can still include `ipynb` files (after clearing the outputs), as they are simpler for contributors to write and pair well with interactive visualization libraries. Further discussion can be found in the [readthedocs documentation](https://docs.readthedocs.io/en/stable/guides/jupyter.html).
 
 Rationale:
 
@@ -85,3 +85,49 @@ following is up to date as of 2023-06-12).
 If you were unable to give readthedocs access to your github documentation, you
 can use readthedocs' [preview github
 action](https://github.com/readthedocs/actions) to post the docs link to the PR.
+
+## Generating Reference Documentation From Docstrings 
+
+Reference documentation consists of technical descriptions of the code and how to use it. This material is rarely read (unlike tutorials or examples), and is instead consulted when users need clarity on specific issues. Fortunately, you've already been writing reference documentation in the form of docstrings. Here, we describe how to automatically construct the reference documentation from these docstrings, using several plugins to `mkdocs`. The following requries that your docstrings adhere to one of the docstring standards, see the [docstrings](04-docstrings.md) note for more details.
+
+Specifically, we will automate the generation of this material using the [mkdocstrings](https://mkdocstrings.github.io/) and [literate-nav](https://mkdocstrings.github.io/) plugins: `mkdocstrings` will generate the docstring documentation and `literate-nav` generates the navigation structure.
+
+
+
+For an in-depth understanding of the following procedure, refer to the `mkdocstrings` [recipes](https://mkdocstrings.github.io/recipes/).
+
+### Procedure
+
+1. Confirm your project follows the recommended [folder structure](01-structure.md).
+2. Ensure the following plugins are listed in your `mkdocs.yml` file:
+
+```yaml
+plugins:
+    - search
+    - mkdocstrings
+    - gen-files:
+        scripts:
+            - docs/gen_ref_pages.py
+    - literate-nav:
+          nav_file: docs/SUMMARY.md
+```
+
+3. Make sure the `docs/gen_ref_pages.py` is located in your project's `docs/` directory. This script runs each time mkdocs builds the documentation, automatically creating a `reference/` directory and temporarily creating a `SUMMARY.md` for literate navigation.
+4. Add the "Code Reference" page to your documentation by incorporating it into the `nav` of the `mkdocs.yml`:
+
+```yaml
+nav:
+  # Other pages in your documentation
+  - Code References: reference/
+``` 
+
+## Why automate?
+
+Automating this procedure offers multiple benefits:
+
+1. **Automatic Generation:** Eliminates the need for manual creation of links or copying of code snippets into your documentation. The documentation stays current with each build.
+2. **Dynamic Documentation:** Your documentation is regenerated as your code and docstrings are updated. Changes in script names or code structure do not affect your documentation's accuracy.
+3. **Consistent Formatting:** The code reference structure is determined by the `docs/gen_ref_pages.py` script, ensuring consistency across the documentation.
+
+However, automatic generation also presents a caveat: it makes customizing the code referencing process more challenging. If you need to modify the layout of code references, you'll need to alter the `gen_ref_pages.py` script. In contrast, manual referencing offers the flexibility to customize the layout of specific modules by editing the `references.md` file or creating a distinct markdown file for each module and customizing it as needed. If you wish to do this manually, consult the [mkdocstrings documentation](https://mkdocstrings.github.io/https://mkdocstrings.github.io/).
+
