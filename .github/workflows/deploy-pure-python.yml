@@ -1,0 +1,58 @@
+name: deploy
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Upload release to Test PyPI
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
+    steps:
+      - uses: actions/checkout@v3
+        # this is necessary for setuptools_scm to work properly with github
+        # actions, see https://github.com/pypa/setuptools_scm/issues/480 and
+        # https://stackoverflow.com/a/68959339
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Build package
+        run: |
+          pip install build
+          python -m build --outdir dist/ --sdist --wheel
+      - name: Check there's only one sdist and one whl file created
+        shell: bash
+        # because the following two tests will be weird otherwise. see
+        # https://askubuntu.com/a/454568 for why this is the right way to handle
+        # it. using [[ BOOLEAN ]] || EXPR is a compact way of writing IF NOT
+        # BOOLEAN THEN EXPR in bash
+        run: |
+          [[ $(find dist/ -type f -name "*whl" -printf x | wc -c) == 1 ]] || exit 1
+          [[ $(find dist/ -type f -name "*tar.gz" -printf x | wc -c) == 1 ]] || exit 1
+      - name: Check setuptools_scm version against git tag
+        shell: bash
+        run: |
+          # we use the error code of this comparison: =~ is bash's regex
+          # operator, so it checks whether the right side is contained in the
+          # left side. In particular, we succeed if the path of the source code
+          # ends in the most recent git tag, fail if it does not.
+          [[ "$(ls dist/*tar.gz)" =~ "-$(git describe --tags).tar.gz" ]]
+      - name: Check we can install from wheel
+        run: |
+          pip install dist/*whl
+      - name: Run some tests
+        # modify the following as necessary to e.g., run notebooks
+        run: |
+          # note that we change directories to ensure we're using the installed
+          # version of the package, not the local one (though if you're using
+          # the src/ layout, this shouldn't be an issue, see structure note).
+          cd tests/
+          pytest .
+      - name: Publish package to test pypi
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
