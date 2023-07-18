@@ -1,3 +1,8 @@
+# Define the build system requirements for the project.
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "ccn-template"
 version = "0.0.1"
@@ -12,16 +17,28 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+# Optional dependencies for documentation [docs] and testing/linting [dev]:
+[project.optional-dependencies]
+docs = [
+    'mkdocs',
+    'mkdocstrings[python]',
+    'mkdocs_section_index',
+    'mkdocs_gen_files',
+    'mkdocs_literate_nav',
+    'mkdocs-gallery'
+]
+dev = [
+    "black",                        # Code formatter
+    "isort",                        # Import sorter
+    "pytest",                       # Testing framework
+    "flake8",                       # Code linter
+    "pytest-cov",                   # Test coverage plugin for pytest
+]
 
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
 
-[project.optional-dependencies]
-docs = [
-    "mkdocs",
-    "mkdocstrings[python]",
-    "mkdocs_section_index",
-    "mkdocs_gen_files",
-    "mkdocs_literate_nav",
-    "mkdocs-gallery",
-]
+# addopts: Additional command-line options for pytest.
+[tool.pytest.ini_options]
+addopts = "--cov=ccn_template"
+testpaths = ["tests"]
