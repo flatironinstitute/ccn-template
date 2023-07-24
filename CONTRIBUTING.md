@@ -22,5 +22,3 @@ When doing a new release, the following steps must be taken:
 2. After merging the above PR into the `main` branch, [create a Github release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) with a new tag matching that used in the binder link above: `X.Y.Z`. Creating the release will trigger the deployment to pypi, via our `deploy` action (found in `.github/workflows/deploy.yml`). The built version will grab the version tag from the Github release, using [setuptools_scm](https://github.com/pypa/setuptools_scm).
 
 I have been unable to find a way to make binder use the latest github release tag directly (or make [binder](https://mybinder.org) use a `latest` tag, like [readthedocs](https://readthedocs.org/) does), so ensure they match!
-
-

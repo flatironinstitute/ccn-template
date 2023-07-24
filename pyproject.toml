@@ -1,3 +1,8 @@
+# Define the build system requirements for the project.
+[build-system]
+requires = ["setuptools", "setuptools-scm[toml]"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "ccn_template"
 # we use this instead of setting version, so that setuptools_scm can dynamically
@@ -14,24 +19,33 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+# Optional dependencies for documentation [docs] and testing/linting [dev]:
+[project.optional-dependencies]
+docs = [
+    'mkdocs',
+    'mkdocstrings[python]',
+    'mkdocs_section_index',
+    'mkdocs_gen_files',
+    'mkdocs_literate_nav',
+    'mkdocs-gallery'
+]
+dev = [
+    "black",                        # Code formatter
+    "isort",                        # Import sorter
+    "pytest",                       # Testing framework
+    "flake8",                       # Code linter
+    "pytest-cov",                   # Test coverage plugin for pytest
+]
 
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
-
-[build-system]
-requires = ["setuptools", "setuptools_scm[toml]"]
 
 [tool.setuptools_scm]
 write_to = "src/ccn_template/version.py"
 version_scheme = 'python-simplified-semver'
 local_scheme = 'no-local-version'
 
-[project.optional-dependencies]
-docs = [
-    "mkdocs",
-    "mkdocstrings[python]",
-    "mkdocs_section_index",
-    "mkdocs_gen_files",
-    "mkdocs_literate_nav",
-    "mkdocs-gallery",
-]
+[tool.pytest.ini_options]
+# addopts: Additional command-line options for pytest.
+addopts = "--cov=ccn_template"
+testpaths = ["tests"]
