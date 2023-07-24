@@ -15,6 +15,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        # this is necessary for setuptools_scm to work properly with github
+        # actions, see https://github.com/pypa/setuptools_scm/issues/480 and
+        # https://stackoverflow.com/a/68959339
+        with:
+          fetch-depth: 0
 
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.13.1
@@ -31,6 +36,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        # this is necessary for setuptools_scm to work properly with github
+        # actions, see https://github.com/pypa/setuptools_scm/issues/480 and
+        # https://stackoverflow.com/a/68959339
+        with:
+          fetch-depth: 0
 
       - name: Build sdist
         run: pipx run build --sdist
@@ -48,7 +58,7 @@ jobs:
         with:
           path: dist/*.tar.gz
 
-  upload_pypi:
+  publish:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
     environment: pypi

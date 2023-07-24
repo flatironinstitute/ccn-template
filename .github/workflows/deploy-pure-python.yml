@@ -4,12 +4,9 @@ on:
     types: [published]
 
 jobs:
-  deploy:
-    name: Upload release to Test PyPI
+  build:
+    name: Build and test package
     runs-on: ubuntu-latest
-    environment: pypi
-    permissions:
-      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
     steps:
       - uses: actions/checkout@v3
         # this is necessary for setuptools_scm to work properly with github
@@ -53,6 +50,22 @@ jobs:
           # the src/ layout, this shouldn't be an issue, see structure note).
           cd tests/
           pytest .
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/*
+
+  publish:
+    name: Upload release to Test PyPI
+    needs: [deploy]
+    environment: pypi
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
+      steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifact
+          path: dist
       - name: Publish package to test pypi
         uses: pypa/gh-action-pypi-publish@release/v1
         with:

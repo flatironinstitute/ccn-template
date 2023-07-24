@@ -194,6 +194,10 @@ This action gets triggered on every github release and does the following on Ubu
 
 Note that you may want to add some extra tests (e.g., run some tutorial notebooks) to the test section. To do so, modify the `CIBW_TEST_COMMAND` line in the yml file (you may also need to modify `CIBW_TEST_REQUIRES`).
 
+### Why is publish a separate job?
+
+In both of these actions, `publish` is a separate job, rather than a step within the deploy job, and you may be wondering why. The main reason is because you might be running the tests multiple times in parallel (e.g., in `deploy-cibw.yml`, we build the wheel separately for each OS), but we only want to upload to PyPI once, including all files. To do this, we make use of Github's [upload and download artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) actions, which allows us to share files between jobs. For the pure python build, the `build` action is only run on one OS, but using the artifact actions allows you to download the built package for examination on your local machine, if you'd like.
+
 ### When you're ready to deploy
 
 As written, these files deploy to Test PyPI. When you're sure they do what you want, modify the file to publish to PyPI instead. To do so, remove the last two lines (`with:` and `repository-url:`) to deploy to PyPI instead of Test PyPI (I also recommend removing "test" from the name of the last step).
