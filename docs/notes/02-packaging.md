@@ -4,6 +4,7 @@ Before we get started, note that, like many topics touched on in this repo, pack
 
 - Read the [python packaging guide](https://pypackaging-native.github.io/) for a high-level overview of this topic.
 - Read [pyOpenSci's packaging guide](https://www.pyopensci.org/python-package-guide/package-structure-code/intro.html) for information about the possible choices you can make. We recommend one way of handling these choices, this guide provides information about the other possibilities.
+- Read the [scientific python development guide's](https://learn.scientific-python.org/development/tutorials/packaging/) tutorial and [guide](https://learn.scientific-python.org/development/guides/packaging-simple/) on this topic.
 - Refer to [PyPA's packaging overview](https://packaging.python.org/en/latest/overview/) for the most authorative (and detailed) information about this topic. [The "packaging and distributing projects" page](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/), in particular, covers a lot of details you may want to refer to.
 
 ## Background
@@ -13,11 +14,13 @@ The primary goal is to end up with an installation that can be completed with a 
 Before we get started, it's important to understand that there are two types of files you can distribute via `pip`: source distribution (in python, often referred to as "sdist" and normally stored as `.tar.gz` archives) and binaries (in python, these are generally "wheel files", zip-format archives with extension `.whl`). Typically, you'll distribute both.
 
 - Source distribution are the raw files, as stored on GitHub (or whatever platform you use), and will require the user's computer to build the package itself. For pure python packages, this is probably not a problem, as the user will need to have python anyway. However, if you have non-python compiled dependencies (called "native dependencies" for some reason), this will get more complicated. For example, if you depend on C or C++ code, the user will need to have a C compiler, which Windows machines do not have by default.
-- Binary files are the already built / compiled source files. They include everything necessary and are ready to be installed directly. They're thus faster to install and less likely to run into user- or operating system-specific issues. However, this means that the developer might need to build and upload to PyPI separate wheels for each operating system they wish to support. However, if you have no compiled extensions, you can produce a "universal" or ["pure python" wheel](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#pure-python-wheels) (so-called because all of your code is in python), which will work on all operating systems.
+- Binary files are the already built / compiled source files. They include everything necessary and are ready to be installed directly. They're thus faster to install and less likely to run into user- or operating system-specific issues. However, this means that the developer must build and upload to PyPI separate wheels for each operating system they wish to support. However, if you have no compiled extensions, you can produce a "universal" or ["pure python" wheel](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#pure-python-wheels) (so-called because all of your code is in python), which will work on all operating systems.
 
 In this note, we'll discuss how to build and upload your library using a GitHub action that handles as much of this as possible for you: it will build the source distribution and wheel files, check that installation is possible, run some tests, and upload to PyPI.
 
 ## pyproject.toml Configuration
+
+We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-guide/package-structure-code/pyproject-toml-python-package-metadata.html) and use `pyproject.toml` to specify build requirements and metadata (rather than `setup.py`), a template for which is included in this repo. Metadata includes the authors, a brief description, homepage url, etc. which will all be rendered in the PyPI sidebar, for example. Build requirements include, at a minimum, the dependencies, and potentially other installation instructions to pass to `pip`.
 
 ### 1. `[build-system]` 
 
@@ -37,8 +40,11 @@ In this note, we'll discuss how to build and upload your library using a GitHub 
    
    ```toml
    [build-system]
-   requires = ["setuptools", "setuptools-scm"]  
+   requires = ["setuptools", "setuptools-scm[toml]"]  
    build-backend = "setuptools.build_meta"
+   
+   [project]
+   dynamic = ["version"]
    ```
 
    **Additional Informations on `setuptools-scm`:**
@@ -59,7 +65,7 @@ In this note, we'll discuss how to build and upload your library using a GitHub 
 
 ### 2. `[project.optional-dependencies]`
 
-`[project.optional-dependencies]` specifies the optional dependencies for documentation and testing/linting.
+`[project.optional-dependencies]` specifies the optional dependencies for documentation and testing/linting. Each of these is a python list and specify optional bundles of dependencies that are installable with bracket syntax: `pip install ccn-template[dependency_bundle]` (or `pip install .[dependency_bundle]` if we're installing from a local copy). See [docs](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#dependencies-optional-dependencies) for more info about how to specify dependencies.
 
    **We recommend the following:**
 
@@ -70,8 +76,7 @@ In this note, we'll discuss how to build and upload your library using a GitHub 
      - [mkdocs_literate_nav](https://oprypin.github.io/mkdocs-literate-nav/): A MkDocs plugin that enhances the navigation sidebar by providing collapsible sections. It improves the readability and organization of the documentation by allowing users to collapse and expand sections.
      - [mkdocs-gallery](https://smarie.github.io/mkdocs-gallery/): A MkDocs plugin that enables the creation of example galleries in the documentation. These examples are written as python scripts that are converted to jupyter notebooks when the docs are built. This combines the advantages of plain scripts (easy to version control and review) and notebooks (easy for users to run and experiment with).
 
-
-   - `dev`: Developer dependencies.
+   - `dev`: Developer dependencies. These include the testing framework and linters, see [the testing notes](05-linters-and-tests.md) for more info.
      - [black](https://black.readthedocs.io/en/latest/): Code formatter. It automatically formats your Python code according to the Black code style.
      - [isort](https://isort.readthedocs.io/en/latest/): Import sorter. It automatically organizes and sorts import statements in your Python code.
      and maintain requirements.txt or pipfile.lock files.
@@ -112,29 +117,6 @@ In this note, we'll discuss how to build and upload your library using a GitHub 
   
   See the dedicated `pytest` [documentation](https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref) for detailed informations.
    
-## Resources
-Potentially useful decision tree image from Pyopensci     
-![python-package-tools-decision-tree](https://github.com/flatironinstitute/ccn-template/assets/6643322/2bc2f9a0-c989-4b0a-92d1-ec52693400fc)
-
-## pyproject.toml
-
-We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-guide/package-structure-code/pyproject-toml-python-package-metadata.html) and use `pyproject.toml` to specify build requirements and metadata (rather than `setup.py`), a template for which is included in this repo. Metadata includes the authors, a brief description, homepage url, etc. which will all be rendered in the PyPI sidebar, for example. Build requirements include, at a minimum, the dependencies, and potentially other installation instructions to pass to `pip`.
-
-### Optional dependencies
-
-We also make use of optional dependencies, as specified under the `[project.optional-dependencies]` header in the `pyproject.toml` file. Each of these is a python list, of the form:
-
-```toml
-dependency_bundle = [
-    'python_package',
-    'python_package_2 > 1.0'
-]
-```
-
-This optional bundle of dependencies can be installed with bracket syntax: `pip install ccn-template[dependency_bundle]` (or `pip install .[dependency_bundle]` if we're installing from a local copy). See [docs](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#dependencies-optional-dependencies) for more info about how to specify dependencies.
-
-We require the use of two optional dependency bundles: `dev` and `docs`. `docs` includes `mkdocs` and plugins required to build the documentation, as installed by `readthedocs` and described a bit more in [the documentation notes](03-documentation.md). `dev` includes `pytest` and the linters, as installed by `tox` and GitHub Actions for continuous integration; see [the testing notes](05-linters-and-tests.md) for more info.
-
 ## Manually building and deploying
 
 In this template repo, we use python's `setuptools` to handle the building and deployment of the package. There are many other choices, such as [Poetry](https://python-poetry.org/), but `setuptools` is sufficient for our purposes here, and I find the others confusing. You can look at [PyOpenSci's packaging guide](https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html#) for some more info on the other possibilities (note, however, that I'm not sure how they interact with `cibuildwheel`, if you'll be using that option, which we discuss more below).
@@ -166,7 +148,7 @@ To manually upload your package to PyPI (or test PyPI), you would use [twine](ht
 
 ## Github Actions
 
-We deploy to PyPI every release, and we follow [semantic versioning](https://semver.org/) for release labeling (see [workflow notes](00-workflow.md) for more details on when to release and how this labeling works; this repo's `CONTRIBUTING.md` document also includes some suggested language for explaining the procedure to ccontributors). We do this by making use of continuous integration (CI) on github actions. See the [CI](07-ci.md) notes for more on CI and Github actions in general; in the following sections we discuss specifically how to use our `deploy` actions.
+We deploy to PyPI every release, and we follow [semantic versioning](https://semver.org/) for release labeling (see [workflow notes](00-workflow.md) for more details on when to release and how this labeling works; this repo's `CONTRIBUTING.md` document also includes some suggested language for explaining the procedure to ccontributors). We do this by making use of continuous integration (CI) on github actions. See the [CI](06-ci.md) notes for more on CI and Github actions in general; in the following sections we discuss specifically how to use our `deploy` actions.
 
 We provide two different Github actions for handling building and deployment: `deploy-pure-python.yml` and `deploy-cibw.yml` (`cibw` = "CI build wheel"). If your package is pure python, as described earlier in this note, use `deploy-pure-python.yml`, otherwise use `deploy-cibw.yml`. If you're not sure, manually build your package as described [earlier](#build) (`python -m build --wheel`) and then `ls dist/*.whl` to examine your built wheels. If your output looks like `package-version-py3-none-any.whl`, it's pure python. If it includes the name of your OS in the filename, it is package-specific and you should use `deploy-cibw.yml`.
 
