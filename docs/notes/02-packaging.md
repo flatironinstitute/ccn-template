@@ -125,6 +125,10 @@ Building and deployment are two separate steps. Building creates the source dist
 
 This section discusses how you would manually build and deploy your package, which is useful for understanding what's going on, but in practice, we handle the building and deployment of our package with Github actions, which take advantage of the fact that Github Action is a PyPI [trusted publisher](https://docs.pypi.org/trusted-publishers/) and thus don't require us to set up API tokens or use username / password for authentication. You can do all the following manually from your local machine, but deploying to PyPI or Test PyPI will require using one of those two other methods for authentication (building does not).
 
+!!! warning
+
+    Note that once you deploy to PyPI, **you cannot undo it.** PyPI can only have one package with a given name and only one upload per version (i.e., you cannot overwrite or re-upload a package with the same version). Therefore, you should be careful about deploying to PyPI and test using Test PyPI first.
+
 ### Build
 
 Assuming your `pyproject.toml` is appropriately set up, you can build your package with the following lines:
@@ -194,3 +198,4 @@ Note that you may want to add some extra tests (e.g., run some tutorial notebook
 
 As written, these files deploy to Test PyPI. When you're sure they do what you want, modify the file to publish to PyPI instead. To do so, remove the last two lines (`with:` and `repository-url:`) to deploy to PyPI instead of Test PyPI (I also recommend removing "test" from the name of the last step).
 
+Additionally, these actions only trigger on release. You may want to modify the action so the workflow can be manually triggered, for easier testing. In that case, it's recommended you still only publish to PyPi / Test PyPI when a release is published, which you can handle with an `if` statement. See the [scientific python development guide](https://learn.scientific-python.org/development/guides/gha-pure/) for an example.
