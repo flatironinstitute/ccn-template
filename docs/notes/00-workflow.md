@@ -15,9 +15,10 @@ Use git flow: `main` branch is for releases, `development` for development, both
 - when ready, open a pull request (to `development`) and address any issues that come up, including ensuring that tests pass
 - merge into `development`.
 - after enough time or enough changes, merge into `main` and make a release.
-- releases should follow [semantic versioning](https://semver.org/) and deploy
-  to `pypi` (and optionally `conda`), see the notes on
-  [packaging](02-packaging.md) and [continuous integration](06-ci.md) for more:
+
+## Versioning
+
+Releases should follow [semantic versioning](https://semver.org/) and deploy to `pypi` (and optionally `conda`), see the notes on [packaging](02-packaging.md) and [continuous integration](06-ci.md) for more. Semantic versioning means version try to use the following scheme:
 
 ```
 Given a version number MAJOR.MINOR.PATCH, increment the:
@@ -25,6 +26,19 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
   -  MINOR version when you add functionality in a backward compatible manner
   -  PATCH version when you make backward compatible bug fixes
 ```
+
+In practice, it is hard to determine what a "breaking change" is. For example, is it considered a breaking change if you change a private method in a backwards-incompatible way? In python, users are not supposed to rely on methods that begin with an underscore, but if your package is large enough, someone almost certainly does ([relevant xkcd](https://xkcd.com/1172/)). So a proposed amendment to the above is the following:
+
+```
+A more realistic form of SemVer, and a better way to think about it, is as an abbreviated changelog and author intent. In this form:
+ - Bumping a patch version means there’s nothing to see, just fixing things, you are probably fine.
+ - Bumping a minor version means that there might be interesting things to see, but nothing you have to see.
+ - Bumping a major version means you really should look, changes might even be needed for users.
+```
+
+Regardless on what you decide, you should explain your scheme in your `CONTRIBUTING.md` file, see this repo's included file for an example.
+
+See the [INTERSECT packaging training](https://intersect-training.org/packaging/05-versioning/index.html#semver-semantic-versioning) for a bit more about versioning.
 
 ## Decision-making / gate-keeping
 
