@@ -17,7 +17,7 @@ Use git flow: `main` branch is for releases, `development` for development, both
 - after enough time or enough changes, merge into `main` and make a release.
 - releases should follow [semantic versioning](https://semver.org/) and deploy
   to `pypi` (and optionally `conda`), see the notes on
-  [packaging](02-packaging.md) and [continuous integration](07-ci.md) for more:
+  [packaging](02-packaging.md) and [continuous integration](06-ci.md) for more:
 
 ```
 Given a version number MAJOR.MINOR.PATCH, increment the:
