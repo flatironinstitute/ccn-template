@@ -1,4 +1,4 @@
-"""Hello World!" python function."""
+"""'Hello World!' python function."""
 
 
 def hello_world_func(word):

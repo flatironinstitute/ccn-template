@@ -21,6 +21,7 @@ We require the following linters to be run on the code and included as checks in
 - [black](https://black.readthedocs.io/en/stable/)
 - [flake8](https://flake8.pycqa.org/en/latest/): Run command `flake8 src/ccn-template/ --max-complexity 10`
 - [isort](https://pycqa.github.io/isort/)
+- [pydocstyle](http://www.pydocstyle.org/en/latest/)
 
 ## Tests
 

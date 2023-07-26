@@ -33,6 +33,7 @@ dev = [
     "pytest",                       # Testing framework
     "flake8",                       # Code linter
     "pytest-cov",                   # Test coverage plugin for pytest
+    "pydocstyle"                    # Docstrings linter
 ]
 
 [project.urls]
@@ -42,3 +43,11 @@ dev = [
 [tool.pytest.ini_options]
 addopts = "--cov=ccn_template"
 testpaths = ["tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "if __name__ == .__main__.:"    # Exclude from coverage
+]
+
+[tool.pydocstyle]
+convention = "numpy"                # Convention for linting (numpy, google, pep257)
