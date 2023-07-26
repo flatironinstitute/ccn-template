@@ -108,7 +108,7 @@ testing notes](05-linters-and-tests.md) for more info.
      - [pytest](https://docs.pytest.org/en/7.3.x/): Testing framework. It is a popular testing framework for Python that allows you to write and execute tests easily.
      - [flake8](https://flake8.pycqa.org/en/latest/): Code linter. It checks your Python code for style, potential errors, and adherence to coding conventions.
      - [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/): Test coverage plugin for pytest. It integrates test coverage measurement into the pytest framework, providing coverage reports and analysis for your tests.
-     - [pydocstyle](http://www.pydocstyle.org/en/latest/index.html): Docstrings linter. It checks that the docstrings in your Python code adhere to a specified convention. This is critical for maintaining a consistent style across your project's documentation, as well as ensuring that tools which automatically generate documentation from docstrings function correctly, see the [documentation](03-documentation.md) note.     
+     - [pydocstyle](http://www.pydocstyle.org/en/latest/index.html): Docstrings linter. It checks that the docstrings in your Python code adhere to a specified convention. This is critical for maintaining a consistent style across your project's documentation, as well as ensuring that tools which automatically generate documentation from docstrings function correctly, see the [documentation note](03-documentation.md#generating-reference-documentation-from-docstrings-).     
   
   **Syntax example:**
   ```toml
@@ -143,7 +143,7 @@ testing notes](05-linters-and-tests.md) for more info.
   
   See the dedicated `pytest` [documentation](https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref) for detailed informations.
 
-### 4. [tool.pydocstyle]
+### 4. `[tool.pydocstyle]`
 
 `[tool.pydocstyle]`: The additional command-line options for pydocstyle. These options will be added by default when running `pydocstyle`. We recommend to set:
 
