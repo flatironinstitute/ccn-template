@@ -213,7 +213,7 @@ Note that you may want to add some extra tests (e.g., run some tutorial notebook
 
 ### Why is publish a separate job?
 
-In both of these actions, `publish` is a separate job, rather than a step within the deploy job, and you may be wondering why. The main reason is because you might be running the tests multiple times in parallel (e.g., in `deploy-cibw.yml`, we build the wheel separately for each OS), but we only want to upload to PyPI once, including all files. To do this, we make use of Github's [upload and download artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) actions, which allows us to share files between jobs. For the pure python build, the `build` action is only run on one OS, but using the artifact actions allows you to download the built package for examination on your local machine, if you'd like.
+In both of these actions, `publish` is a separate job, rather than a step within the build job, and you may be wondering why. The main reason is because you might be running the tests multiple times in parallel (e.g., in `deploy-cibw.yml`, we build the wheel separately for each OS), but we only want to upload to PyPI once, including all files. To do this, we make use of Github's [upload and download artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) actions, which allows us to share files between jobs. For the pure python build, the `build` action is only run on one OS, but using the artifact actions allows you to download the built package for examination on your local machine, if you'd like.
 
 ### When you're ready to deploy
 
