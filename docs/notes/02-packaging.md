@@ -131,6 +131,8 @@ This section discusses how you would manually build and deploy your package, whi
 
 ### Build
 
+#### Pure python
+
 Assuming your `pyproject.toml` is appropriately set up, you can build your package with the following lines:
 
 ```bash
@@ -138,17 +140,32 @@ pip install build # only run the first time
 python -m build --outdir dist/ --sdist --wheel
 ```
 
-This will build the source distribution and wheel for your system. If your code is pure python, as discussed above, then you're done!
+This will build the source distribution and wheel for your system. If your code is pure python, as discussed above, then you're done! You can double check this by running `ls dist/*.whl`; if your package is pure python, the name will look like `package-version-py3-none-any.whl` (replacing `package` and `version` with the name and version, respectively, of your package). Otherwise, you have native dependencies.
 
-If you have native dependencies, then you're using `deploy-cibw.yml`, and you might want to be able to run `cibuildwheel` locally, in order to check against what's happening in the Github action. To do so, see [the cibuildwheel documentation](https://cibuildwheel.readthedocs.io/en/stable/setup/#local) for how to install and run it. Note that you'll need [docker](https://www.docker.com/products/docker-desktop) installed to build the Linux wheel (which is possible from any OS); if you wish to build the macOS or Windows wheel, you'll need that operating system (see cibuildwheel docs for more info).
+#### CI Build Wheel
+
+If, however, you have native dependencies, you'll need to build platform-specific wheels. To start, run the same lines as in the pure python example:
+
+```bash
+pip install build # only run the first time
+python -m build --outdir dist/ --sdist --wheel
+```
+
+Now, if you check the contents of your `dist/` directory, you'll see that the name of your built wheel file will look like `package-version-py3-macosx_11_0_arm64.whl` or `package-version-py3-win_amd64.whl` or something similar. Basically, the built wheel will now also specify the operating system and architecture of your machine, and users will only be able to install wheels built with the same OS and architecture! This is a bit of a problem, as most of us don't have many computers running around to run python builds on.
+
+Fortunately, there's a solution called `cibuildwheel`, which makes use of CI/CD systems (such as Github actions) to build wheels for multiple systems. You cannot build the wheel for multiple OSs locally, but you can use `cibuildwheel` to build the Linux wheel locally (regardless of your OS) to get a sense for how it works. To do so, see [the cibuildwheel documentation](https://cibuildwheel.readthedocs.io/en/stable/setup/#local) for how to install and run it. Note that you'll need [docker](https://www.docker.com/products/docker-desktop) installed.
 
 As mentioned above, if your package has no native extensions (like this `ccn-template` repo!), then you don't need a platform-specific wheel, only a pure python wheel. In this case, `cibuildwheel` will actually raise an exception (see [this issue](https://github.com/pypa/cibuildwheel/issues/255) for the initial idea, and [this issue](https://github.com/pypa/cibuildwheel/issues/1021) for a longer discussion), and locally you can just rely on the `python -m build --wheel` command above.
 
 ### Deploy
 
-After building, we deploy our projects to the [python packaging index](https://pypi.org/) so they can be installed easily with `pip`.
+Regardless of whether you have pure python or platform-specific wheels, the deployment procedure is the same. After building, we deploy our projects to the [python packaging index](https://pypi.org/) so they can be installed easily with `pip`.
 
-To manually upload your package to PyPI (or test PyPI), you would use [twine](https://twine.readthedocs.io/en/stable/) after building the source distribution and wheel files: `twine upload dist/*` for PyPI, `twine upload -r testpypi dist/*` for Test PyPI. However, we *strongly* recommend only using the Github action to upload to PyPI: once you upload a package with a specific version number to PyPI, you cannot overwrite it or re-upload the same package with the same version (you can "yank" a specific version, warning users about a version you don't want them to install). Therefore, we recommend being very careful around this.
+To manually upload your package to PyPI (or Test PyPI), you would use [twine](https://twine.readthedocs.io/en/stable/) after building the source distribution and wheel files: `twine upload dist/*` for PyPI, `twine upload -r testpypi dist/*` for Test PyPI. However, we *strongly* recommend only using the Github action to upload to PyPI: once you upload a package with a specific version number to PyPI, you cannot overwrite it or re-upload the same package with the same version (you can "yank" a specific version, warning users about a version you don't want them to install). Therefore, we recommend being very careful around this.
+
+!!! warning
+
+    Make sure you have all the files you wish to upload to PyPI together before doing this! As noted above, you cannot overwrite or undo a deployment to PyPI or Test PyPI, so you'll be uploading all the files together at the same time.
 
 ## Github Actions
 
