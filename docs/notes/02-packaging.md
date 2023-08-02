@@ -65,11 +65,11 @@ testing notes](05-linters-and-tests.md) for more info.
 
    **Syntax example:**
    
-   ```toml
-   [build-system]
-   requires = ["setuptools", "setuptools-scm"]  
-   build-backend = "setuptools.build_meta"
-   ```
+```toml
+[build-system]
+requires = ["setuptools", "setuptools-scm"]  
+build-backend = "setuptools.build_meta"
+```
 
    **Additional Informations on `setuptools-scm`:**
 
@@ -111,19 +111,20 @@ testing notes](05-linters-and-tests.md) for more info.
      - [pydocstyle](http://www.pydocstyle.org/en/latest/index.html): Docstrings linter. It checks that the docstrings in your Python code adhere to a specified convention. This is critical for maintaining a consistent style across your project's documentation, as well as ensuring that tools which automatically generate documentation from docstrings function correctly, see the [documentation note](03-documentation.md#generating-reference-documentation-from-docstrings-).     
   
   **Syntax example:**
-  ```toml
-    [project.optional-dependencies]
-    docs = [
-      'mkdocs',
-      'mkdocstrings[python]',
-      ...
-    ]
-    dev = [
-      "black", 
-      "isort",                       
-      ...
-    ]
-  ```
+  
+```toml
+[project.optional-dependencies]
+docs = [
+ 'mkdocs',
+ 'mkdocstrings[python]',
+ # ...
+]
+dev = [
+ "black", 
+ "isort",                       
+ # ...
+]
+```
 
 ### 3. `[tool.pytest.ini_options]` 
 
@@ -133,11 +134,11 @@ testing notes](05-linters-and-tests.md) for more info.
    - `testpaths`: It specifies the directories to search for tests.
    
   **Syntax Example:**
-  ```toml
-  [tool.pytest.ini_options]
-  addopts = "--cov=ccn_template"
-  testpaths = ["tests"]
-  ```
+```toml
+[tool.pytest.ini_options]
+addopts = "--cov=ccn_template"
+testpaths = ["tests"]
+```
 
   **Additional Informations:**
   
