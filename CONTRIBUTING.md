@@ -19,9 +19,9 @@ We create releases on Github, deploy on / distribute via [pypi](https://pypi.org
 This is a goal and, in practice, it's difficult to determine what a "breaking change" may be. So in practice, major, minor, and patch versions can be more realistically interpreted as follows (proposed by Henry Schreiner):
 
 > A more realistic form of SemVer, and a better way to think about it, is as an abbreviated changelog and author intent. In this form:
->  - Bumping a patch version means there’s nothing to see, just fixing things, you are probably fine.
->  - Bumping a minor version means that there might be interesting things to see, but nothing you have to see.
 >  - Bumping a major version means you really should look, changes might even be needed for users.
+>  - Bumping a minor version means that there might be interesting things to see, but nothing you have to see.
+>  - Bumping a patch version means there’s nothing to see, just fixing things, you are probably fine.
 
 
 When doing a new release, the following steps must be taken:
