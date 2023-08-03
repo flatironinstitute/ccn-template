@@ -199,6 +199,10 @@ Note that you may want to add some extra tests (e.g., run some tutorial notebook
 
 #### CI Build Wheel
 
+!!! warning
+
+    This template repo is a pure python package, and so we have been unable to test the included `deploy-cibw.yml` action. It's based on CI Build Wheel's official example, so it's probably fine, but just so you know.
+
 The action defined in `deploy-cibw.yml` builds and deploys a project with additional non-python components. This section makes use of [cibuildwheel](https://cibuildwheel.readthedocs.io/en/stable/), which runs on GitHub Actions (or other CI providers) to build and test wheels across all platforms. The file is based on their [example github deployment](https://github.com/pypa/cibuildwheel/blob/main/examples/github-deploy.yml).
 
 This action gets triggered on every github release and does the following on Ubuntu 22.04, Windows 2022, and MacOS 11 (see [github actions docs](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources) for details on the OS of the runners):
