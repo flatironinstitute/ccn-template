@@ -29,7 +29,7 @@ The root directory of this repo contains the `.readthedocs.yml` file, which
 includes the configuration to work with
 [readthedocs.org](https://readthedocs.org/).
 
-By default it:
+By default, it:
 
 - works with mkdocs, using the `mkdocs.yml` config file.
 - builds on ubuntu 22.04 and python 3.10
@@ -42,13 +42,13 @@ By default it:
 
 However, you need to link your repo to readthedocs in order for this config file
 to do anything. The following only needs to be done once per project (the
-following is up to date as of 2023-06-12).
+following is up-to-date as of 2023-06-12).
 
 1. [Connect](https://docs.readthedocs.io/en/stable/guides/connecting-git-account.html)
-   your readthedocs account to github.
-2. Optional, but recommended: If your repo lives under a github organization,
+   your readthedocs account to GitHub.
+2. Optional, but recommended: If your repo lives under a GitHub organization,
    you also need to give readthedocs.org permission to access it. To do so, on
-   github go to `Settings > Applications > Authorized OAuth Apps` and click on
+   GitHub go to `Settings > Applications > Authorized OAuth Apps` and click on
    "Read the Docs Community". At the bottom of the page, you should see the
    "Organization access" section with a list of your organizations. If your
    organization has a check mark, you've already given readthedocs access!
@@ -69,21 +69,21 @@ following is up to date as of 2023-06-12).
    [readthedocs](https://docs.readthedocs.io/en/stable/config-file/v2.html)
    documentation for more info on what can be included).
 5. Fill out the extra details, selecting `Mkdocs` as the documentation type,
-   `Python` as the programming language, and the github repo as the project
+   `Python` as the programming language, and the GitHub repo as the project
    homepage.
 6. You will then most likely have to manually configure the webhook, following
    [these
    instructions](https://docs.readthedocs.io/en/latest/guides/setup/git-repo-manual.html#provider-specific-instructions)
 7. Afterwards, go to your project, then `Admin > Advanced Settings` and check
    the "Build pull requests for this project" checkbox.
-8. You should be good to go! If you had to manually add the github repo,
+8. You should be good to go! If you had to manually add the GitHub repo,
    readthedocs might not be able to post back to pull requests, so check on your
    builds (`https://readthedocs.org/projects/ccn-template/builds/`, replacing
    `ccn-template` with your project name) and post the link yourself! If you
    were able to give readthedocs access in step 2, it should be able to post.
 
-If you were unable to give readthedocs access to your github documentation, you
-can use readthedocs' [preview github
+If you were unable to give readthedocs access to your GitHub documentation, you
+can use readthedocs' [preview GitHub
 action](https://github.com/readthedocs/actions) to post the docs link to the PR.
 
 ## Generating Reference Documentation From Docstrings 
