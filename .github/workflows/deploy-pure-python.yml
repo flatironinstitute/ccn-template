@@ -56,7 +56,7 @@ jobs:
 
   publish:
     name: Upload release to Test PyPI
-    needs: [deploy]
+    needs: [build]
     environment: pypi
     runs-on: ubuntu-latest
     permissions:
