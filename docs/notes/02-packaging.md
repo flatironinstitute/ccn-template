@@ -13,12 +13,12 @@ The primary goal is to end up with an installation that can be completed with a 
 
 Before we get started, it's important to understand that there are two types of files you can distribute via `pip`: source distribution (in python, often referred to as "sdist" and normally stored as `.tar.gz` archives) and binaries (in python, these are generally "wheel files", zip-format archives with extension `.whl`). Typically, you'll distribute both.
 
-- Source distribution are the raw files, as stored on GitHub (or whatever platform you use), and will require the user's computer to build the package itself. For pure python packages, this is probably not a problem, as the user will need to have python anyway. However, if you have non-python compiled dependencies (called "native dependencies" for some reason), this will get more complicated. For example, if you depend on C or C++ code, the user will need to have a C compiler, which Windows machines do not have by default.
-- Binary files are the already built / compiled source files. They include everything necessary and are ready to be installed directly. They're thus faster to install and less likely to run into user- or operating system-specific issues. However, this means that the developer must build and upload to PyPI separate wheels for each operating system they wish to support. However, if you have no compiled extensions, you can produce a "universal" or ["pure python" wheel](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#pure-python-wheels) (so-called because all of your code is in python), which will work on all operating systems.
+- Source distribution are the raw files, as stored on GitHub (or whatever platform you use), and will require the user's computer to build the package itself. For pure python packages, this is probably not a problem, as the user will need to have python anyway. However, if you have non-python compiled dependencies (called "native dependencies" for some reason, which is how I'll refer to them in the rest of this note), this will get more complicated. For example, if you depend on C or C++ code, the user will need to have a C compiler, which Windows machines do not have by default.
+- Binary files are the already built / compiled source files. They include everything necessary and are ready to be installed directly. They're thus faster to install and less likely to run into user- or operating system-specific issues. However, this means that the developer must build and upload to PyPI separate wheels for each operating system they wish to support. However, if you have no native dependencies, you can produce a "universal" or ["pure python" wheel](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#pure-python-wheels) (so-called because all of your code is in python), which will work on all operating systems.
 
 In this note, we'll discuss how to build and upload your library using a GitHub action that handles as much of this as possible for you: it will build the source distribution and wheel files, check that installation is possible, run some tests, and upload to PyPI.
 
-## pyproject.toml Configuration
+## Specifying project metadata and build instructions with pyproject.toml 
 
 We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-guide/package-structure-code/pyproject-toml-python-package-metadata.html) and use `pyproject.toml` to specify build requirements and metadata (rather than `setup.py`), a template for which is included in this repo. Metadata includes the authors, a brief description, homepage url, etc. which will all be rendered in the PyPI sidebar, for example. Build requirements include, at a minimum, the dependencies, and potentially other installation instructions to pass to `pip`.
 
@@ -148,6 +148,8 @@ This section discusses how you would manually build and deploy your package, whi
 
 ### Build
 
+#### Pure python
+
 Assuming your `pyproject.toml` is appropriately set up, you can build your package with the following lines:
 
 ```bash
@@ -155,17 +157,32 @@ pip install build # only run the first time
 python -m build --outdir dist/ --sdist --wheel
 ```
 
-This will build the source distribution and wheel for your system. If your code is pure python, as discussed above, then you're done!
+This will build the source distribution and wheel for your system. If your code is pure python, as discussed above, then you're done! You can double check this by running `ls dist/*.whl`; if your package is pure python, the name will look like `package-version-py3-none-any.whl` (replacing `package` and `version` with the name and version, respectively, of your package). Otherwise, you have native dependencies.
 
-If you have native dependencies, then you're using `deploy-cibw.yml`, and you might want to be able to run `cibuildwheel` locally, in order to check against what's happening in the Github action. To do so, see [the cibuildwheel documentation](https://cibuildwheel.readthedocs.io/en/stable/setup/#local) for how to install and run it. Note that you'll need [docker](https://www.docker.com/products/docker-desktop) installed to build the Linux wheel (which is possible from any OS); if you wish to build the macOS or Windows wheel, you'll need that operating system (see cibuildwheel docs for more info).
+#### CI Build Wheel
 
-As mentioned above, if your package has no compiled extensions (like this `ccn-template` repo!), then you don't need a platform-specific wheel, only a pure python wheel. In this case, `cibuildwheel` will actually raise an exception (see [this issue](https://github.com/pypa/cibuildwheel/issues/255) for the initial idea, and [this issue](https://github.com/pypa/cibuildwheel/issues/1021) for a longer discussion), and locally you can just rely on the `python -m build --wheel` command above.
+If, however, you have native dependencies, you'll need to build platform-specific wheels. To start, run the same lines as in the pure python example:
+
+```bash
+pip install build # only run the first time
+python -m build --outdir dist/ --sdist --wheel
+```
+
+Now, if you check the contents of your `dist/` directory, you'll see that the name of your built wheel file will look like `package-version-py3-macosx_11_0_arm64.whl` or `package-version-py3-win_amd64.whl` or something similar. Basically, the built wheel will now also specify the operating system and architecture of your machine, and users will only be able to install wheels built with the same OS and architecture! This is a bit of a problem, as most of us don't have many computers running around to run python builds on.
+
+Fortunately, there's a solution called `cibuildwheel`, which makes use of CI/CD systems (such as Github actions) to build wheels for multiple systems. You cannot build the wheel for multiple OSs locally, but you can use `cibuildwheel` to build the Linux wheel locally (regardless of your OS) to get a sense for how it works. To do so, see [the cibuildwheel documentation](https://cibuildwheel.readthedocs.io/en/stable/setup/#local) for how to install and run it. Note that you'll need [docker](https://www.docker.com/products/docker-desktop) installed.
+
+As mentioned above, if your package has no native extensions (like this `ccn-template` repo!), then you don't need a platform-specific wheel, only a pure python wheel. In this case, `cibuildwheel` will actually raise an exception (see [this issue](https://github.com/pypa/cibuildwheel/issues/255) for the initial idea, and [this issue](https://github.com/pypa/cibuildwheel/issues/1021) for a longer discussion), and locally you can just rely on the `python -m build --wheel` command above.
 
 ### Deploy
 
-After building, we deploy our projects to the [python packaging index](https://pypi.org/) so they can be installed easily with `pip`.
+Regardless of whether you have pure python or platform-specific wheels, the deployment procedure is the same. After building, we deploy our projects to the [python packaging index](https://pypi.org/) so they can be installed easily with `pip`.
 
-To manually upload your package to PyPI (or test PyPI), you would use [twine](https://twine.readthedocs.io/en/stable/) after building the source distribution and wheel files: `twine upload dist/*` for PyPI, `twine upload -r testpypi dist/*` for Test PyPI. However, we *strongly* recommend only using the Github action to upload to PyPI: once you upload a package with a specific version number to PyPI, you cannot overwrite it or re-upload the same package with the same version (you can "yank" a specific version, warning users about a version you don't want them to install). Therefore, we recommend being very careful around this.
+To manually upload your package to PyPI (or Test PyPI), you would use [twine](https://twine.readthedocs.io/en/stable/) after building the source distribution and wheel files: `twine upload dist/*` for PyPI, `twine upload -r testpypi dist/*` for Test PyPI. However, we *strongly* recommend only using the Github action to upload to PyPI: once you upload a package with a specific version number to PyPI, you cannot overwrite it or re-upload the same package with the same version (you can "yank" a specific version, warning users about a version you don't want them to install). Therefore, we recommend being very careful around this.
+
+!!! warning
+
+    Make sure you have all the files you wish to upload to PyPI together before doing this! As noted above, you cannot overwrite or undo a deployment to PyPI or Test PyPI, so you'll be uploading all the files together at the same time.
 
 ## Github Actions
 
@@ -199,6 +216,10 @@ Note that you may want to add some extra tests (e.g., run some tutorial notebook
 
 #### CI Build Wheel
 
+!!! warning
+
+    This template repo is a pure python package, and so we have been unable to test the included `deploy-cibw.yml` action. It's based on CI Build Wheel's official example, so it's probably fine, but just so you know.
+
 The action defined in `deploy-cibw.yml` builds and deploys a project with additional non-python components. This section makes use of [cibuildwheel](https://cibuildwheel.readthedocs.io/en/stable/), which runs on GitHub Actions (or other CI providers) to build and test wheels across all platforms. The file is based on their [example github deployment](https://github.com/pypa/cibuildwheel/blob/main/examples/github-deploy.yml).
 
 This action gets triggered on every github release and does the following on Ubuntu 22.04, Windows 2022, and MacOS 11 (see [github actions docs](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources) for details on the OS of the runners):
@@ -213,7 +234,7 @@ Note that you may want to add some extra tests (e.g., run some tutorial notebook
 
 ### Why is publish a separate job?
 
-In both of these actions, `publish` is a separate job, rather than a step within the deploy job, and you may be wondering why. The main reason is because you might be running the tests multiple times in parallel (e.g., in `deploy-cibw.yml`, we build the wheel separately for each OS), but we only want to upload to PyPI once, including all files. To do this, we make use of Github's [upload and download artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) actions, which allows us to share files between jobs. For the pure python build, the `build` action is only run on one OS, but using the artifact actions allows you to download the built package for examination on your local machine, if you'd like.
+In both of these actions, `publish` is a separate job, rather than a step within the build job, and you may be wondering why. The main reason is because you might be running the tests multiple times in parallel (e.g., in `deploy-cibw.yml`, we build the wheel separately for each OS), but we only want to upload to PyPI once, including all files. To do this, we make use of Github's [upload and download artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) actions, which allows us to share files between jobs. For the pure python build, the `build` action is only run on one OS, but using the artifact actions allows you to download the built package for examination on your local machine, if you'd like.
 
 ### When you're ready to deploy
 

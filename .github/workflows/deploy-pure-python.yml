@@ -1,4 +1,4 @@
-name: deploy
+name: Build and upload to PyPI for pure python
 on:
   release:
     types: [published]
@@ -40,8 +40,15 @@ jobs:
           # ends in the most recent git tag, fail if it does not.
           [[ "$(ls dist/*tar.gz)" =~ "-$(git describe --tags).tar.gz" ]]
       - name: Check we can install from wheel
+        # note that this is how this works in bash (different shells might be
+        # slightly different). we've checked there's only one .whl file in an
+        # earlier step, so the bit in `$()` will expand to that single file,
+        # then we pass [dev] to get specify the optional dev dependencies, and
+        # we wrap the whole thing in quotes so bash doesn't try to interpret the
+        # square brackets but passes them directly to pip install
+        shell: bash
         run: |
-          pip install dist/*whl
+          pip install "$(ls dist/*whl)[dev]"
       - name: Run some tests
         # modify the following as necessary to e.g., run notebooks
         run: |
@@ -56,12 +63,12 @@ jobs:
 
   publish:
     name: Upload release to Test PyPI
-    needs: [deploy]
+    needs: [build]
     environment: pypi
     runs-on: ubuntu-latest
     permissions:
       id-token: write # IMPORTANT: this permission is mandatory for trusted publishing
-      steps:
+    steps:
       - uses: actions/download-artifact@v3
         with:
           name: artifact

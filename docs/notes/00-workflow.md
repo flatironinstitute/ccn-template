@@ -27,18 +27,9 @@ Given a version number MAJOR.MINOR.PATCH, increment the:
   -  PATCH version when you make backward compatible bug fixes
 ```
 
-In practice, it is hard to determine what a "breaking change" is. For example, is it considered a breaking change if you change a private method in a backwards-incompatible way? In python, users are not supposed to rely on methods that begin with an underscore, but if your package is large enough, someone almost certainly does ([relevant xkcd](https://xkcd.com/1172/)). So a proposed amendment to the above is the following:
+In practice, it is hard to determine what a "breaking change" is. For example, is it considered a breaking change if you change a private method in a backwards-incompatible way? In python, users are not supposed to rely on methods that begin with an underscore, but if your package is large enough, someone almost certainly does ([relevant xkcd](https://xkcd.com/1172/)). Some developers have tried to address these concerns by focusing their versioning protocol on authorial intent, trying to avoid sounding like they're making guarantees about breaking changes (see the [INTERSECT packaging training](https://intersect-training.org/packaging/05-versioning/index.html#semver-semantic-versioning) for this protocol and more thoughts on this).
 
-```
-A more realistic form of SemVer, and a better way to think about it, is as an abbreviated changelog and author intent. In this form:
- - Bumping a patch version means there’s nothing to see, just fixing things, you are probably fine.
- - Bumping a minor version means that there might be interesting things to see, but nothing you have to see.
- - Bumping a major version means you really should look, changes might even be needed for users.
-```
-
-Regardless on what you decide, you should explain your scheme in your `CONTRIBUTING.md` file, see this repo's included file for an example.
-
-See the [INTERSECT packaging training](https://intersect-training.org/packaging/05-versioning/index.html#semver-semantic-versioning) for a bit more about versioning.
+Regardless on what you decide, you should explain your scheme in your `CONTRIBUTING.md` file (see this repo's included file for an example).
 
 ## Decision-making / gate-keeping
 

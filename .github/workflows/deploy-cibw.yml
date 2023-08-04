@@ -1,4 +1,6 @@
-name: Build and upload to PyPI
+# this job will always fail for ccn-template repo, because it's a pure python
+# project.
+name: Build and upload to PyPI with CIBW
 
 on:
   release:
