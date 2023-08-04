@@ -1,11 +1,13 @@
 # Define the build system requirements for the project.
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools", "setuptools-scm[toml]"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ccn-template"
-version = "0.0.1"
+name = "ccn_template"
+# we use this instead of setting version, so that setuptools_scm can dynamically
+# set the version number. see notes for details
+dynamic = ["version"]
 authors = [
   { name="Billy Broderick", email="author@example.com" },
 ]
@@ -38,7 +40,12 @@ dev = [
 [project.urls]
 "Homepage" = "https://github.com/flatironinstitute/ccn-template"
 
-# addopts: Additional command-line options for pytest.
+[tool.setuptools_scm]
+write_to = "src/ccn_template/version.py"
+version_scheme = 'python-simplified-semver'
+local_scheme = 'no-local-version'
+
 [tool.pytest.ini_options]
+# addopts: Additional command-line options for pytest.
 addopts = "--cov=ccn_template"
 testpaths = ["tests"]
