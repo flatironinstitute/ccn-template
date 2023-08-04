@@ -21,6 +21,7 @@ In this note, we'll discuss how to build and upload your library using a GitHub 
 ## Specifying project metadata and build instructions with pyproject.toml 
 
 We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-guide/package-structure-code/pyproject-toml-python-package-metadata.html) and use `pyproject.toml` to specify build requirements and metadata (rather than `setup.py`), a template for which is included in this repo. Metadata includes the authors, a brief description, homepage url, etc. which will all be rendered in the PyPI sidebar, for example. Build requirements include, at a minimum, the dependencies, and potentially other installation instructions to pass to `pip`.
+Here's a more in-depth look at the configurations featured in our `pyproject.toml` template.
 
 ### 1. `[build-system]` 
 

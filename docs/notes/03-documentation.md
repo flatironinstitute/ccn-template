@@ -99,12 +99,18 @@ For an in-depth understanding of the following procedure, refer to the `mkdocstr
 ### Procedure
 
 1. Confirm your project follows the recommended [folder structure](01-structure.md).
-2. Ensure the following plugins are listed in your `mkdocs.yml` file:
+2. Ensure the following plugins are listed and configured in your `mkdocs.yml` file.
 
 ```yaml
 plugins:
     - search
-    - mkdocstrings
+    - mkdocstrings:
+        handlers:                      
+          python:
+            options:
+              docstring_style: numpy
+              show_source: true
+              show_members: source
     - gen-files:
         scripts:
             - docs/gen_ref_pages.py
