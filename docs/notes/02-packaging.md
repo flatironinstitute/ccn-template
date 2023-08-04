@@ -126,7 +126,7 @@ testpaths = ["tests"]
 
 `[tool.pydocstyle]`: The additional command-line options for pydocstyle. These options will be added by default when running `pydocstyle`. We recommend to set:
 
-   - `convention`: It defines which conventions should be followed by the docstrings. Option include [numpydoc](https://github.com/numpy/numpydoc), [google](https://google.github.io/styleguide/pyguide.html), and [pep257](http://www.python.org/dev/peps/pep-0257/).
+   - `convention`: It defines which conventions should be followed by the docstrings. Options include [numpydoc](https://github.com/numpy/numpydoc), [google](https://google.github.io/styleguide/pyguide.html), and [pep257](http://www.python.org/dev/peps/pep-0257/).
 
 **Syntax Example:**
 ```toml
