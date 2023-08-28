@@ -35,7 +35,7 @@ dev = [
     "pytest",                       # Testing framework
     "flake8",                       # Code linter
     "pytest-cov",                   # Test coverage plugin for pytest
-    "pydocstyle"                    # Docstrings linter
+    "pydocstyle",                    # Docstrings linter
 ]
 
 [project.urls]
