@@ -46,6 +46,9 @@ write_to = "src/ccn_template/version.py"
 version_scheme = 'python-simplified-semver'
 local_scheme = 'no-local-version'
 
+[tool.black]
+exclude = '/version\.py$'
+
 [tool.pytest.ini_options]
 # addopts: Additional command-line options for pytest.
 addopts = "--cov=ccn_template"
