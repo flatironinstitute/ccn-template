@@ -57,5 +57,5 @@ exclude_lines = [
 ]
 
 [tool.pydocstyle]
-convention = "numpy"                # Convention for linting (numpy, google, pep257)
-match = "^(?!.*version\\.py$).*\\.py$" # this matches everything that ends with .py, except for version.py
+convention = "numpy"                   # Convention for linting (numpy, google, pep257)
+match = "^(?!version\\.py$).*\\.py$"   # This matches everything that ends with .py, except for version.py

@@ -8,7 +8,7 @@ theme:
     features:
       - navigation.tabs
 plugins:
-    - search                           # make sure the search plugin is still enabled
+    - search                           # make sure the search plugin is enabled
     - mkdocstrings:                    # plugin for generating documentation from Python docstrings
         handlers:                      # handler is responsible for loading and parsing source files
           python:                      # set handler is for Python

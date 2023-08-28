@@ -100,24 +100,22 @@ For an in-depth understanding of the following procedure, refer to the `mkdocstr
 
 1. Confirm your project follows the recommended [folder structure](01-structure.md).
 2. Ensure the following plugins are listed and configured in your `mkdocs.yml` file.
-
-```yaml
-plugins:
-    - search
-    - mkdocstrings:
-        handlers:                      
-          python:
-            options:
-              docstring_style: numpy
-              show_source: true
-              show_members: source
-    - gen-files:
-        scripts:
-            - docs/gen_ref_pages.py
-    - literate-nav:
-          nav_file: docs/SUMMARY.md
-```
-
+   ```yaml
+   plugins:
+       - search                            
+       - mkdocstrings:
+           handlers:
+             python:
+               options:
+                 docstring_style: numpy
+                 show_source: true
+                 show_members: source
+       - gen-files:
+           scripts:
+               - docs/gen_ref_pages.py
+       - literate-nav:
+             nav_file: docs/SUMMARY.md
+   ```
 3. Make sure the `docs/gen_ref_pages.py` is located in your project's `docs/` directory. This script runs each time mkdocs builds the documentation, automatically creating a `reference/` directory and temporarily creating a `SUMMARY.md` for literate navigation.
 4. Add the "Code Reference" page to your documentation by incorporating it into the `nav` of the `mkdocs.yml`:
 
@@ -125,7 +123,22 @@ plugins:
 nav:
   # Other pages in your documentation
   - Code References: reference/
-``` 
+```
+
+!!! info "Brief Overview of Plugins and Their Configurations"
+    
+    - **search:** Enables a search functionality across the documentation.
+    - **mkdocstrings:** Auto-generation of documentation from Python docstrings. For detailed configuration options, refer to the [mkdocstrings documentation](https://mkdocstrings.github.io/python/usage/?h=configu#configuration).
+      - **handlers:** Configure the handler that is responsible for loading and parsing source files.
+        - **python:** Specifies Python as the handler.
+          - **options:** Tunes the handler settings.
+            - **docstring_style:** Set the expected docstring convention.
+            - **show_source:** Allows for a source code link inclusion.
+            - **show_members:** Dictates the display order of members. 'Source' ensures they appear as ordered in the source code.
+    - **gen-files:** Automates the generation of specific documentation files during the build process.
+         - **scripts:**  Create reference pages using the provided Python script.
+    - **literate-nav:** Helps in generating a structured navigation for the documentation based on the content.
+         - **nav_file:** Specifies the file that defines the navigation structure for your documentation. In this setup, it's temporarily created as `SUMMARY.md` for structured navigation.
 
 ## Why automate?
 
