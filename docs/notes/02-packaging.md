@@ -23,7 +23,7 @@ In this note, we'll discuss how to build and upload your library using a GitHub 
 We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-guide/package-structure-code/pyproject-toml-python-package-metadata.html) and use `pyproject.toml` to specify build requirements and metadata (rather than `setup.py`), a template for which is included in this repo. Metadata includes the authors, a brief description, homepage url, etc. which will all be rendered in the PyPI sidebar, for example. Build requirements include, at a minimum, the dependencies, and potentially other installation instructions to pass to `pip`.
 Here's a more in-depth look at the configurations featured in our `pyproject.toml` template.
 
-### 1. `[build-system]` 
+### 1. `[build-system]` and versioning
 
 `[build-system]` defines the build system requirements for the project, specifying the dependencies and build backend used for building and packaging. You can provide the following details:
 
@@ -47,8 +47,12 @@ Here's a more in-depth look at the configurations featured in our `pyproject.tom
    
    [project]
    dynamic = ["version"]
-   ```
 
+   [tool.setuptools_scm]
+   write_to = "src/ccn_template/version.py"
+   version_scheme = 'python-simplified-semver'
+   local_scheme = 'no-local-version'
+   ```
 
    **Additional Information on `setuptools-scm`:**
 
@@ -66,6 +70,9 @@ Here's a more in-depth look at the configurations featured in our `pyproject.tom
 
    - [poetry](https://python-poetry.org/) or [flit](https://pypi.org/project/flit/)
 
+!!! info "Where does the version number come from?"
+    When using `setuptools-scm`, as above, the version number will be automatically determined at build-time and written to the specified file: `src/ccn_template/version.py`. We have included the line `from .version import __version__` in `src/ccn_template/__init__.py`, so that the version number can be accessed at `ccn_template.__version__`, as is typical for python. `setuptools-scm` automatically determines the version number based on the value of `version_scheme` and `local_scheme`. With the options specified in the example above (`'python-simplified-semver'` and `'no-local-version'`, respectively), if the commit being built from has a semantic version tag (see [workflow notes](./00-workflow.md#versioning)) and no changes, `setuptools-scm` will use the tag as the version number. If there have been changes, it will increment the patch version (the last number) and append `.devN`, where `N` is the number of commits since the last tag. See [setuptools-scm README](https://github.com/pypa/setuptools_scm/) for more details and, when installed, run `python -m setuptools_scm` to see what version number it determines for your package.
+   
 ### 2. `[project.optional-dependencies]`
 
 `[project.optional-dependencies]` specifies the optional dependencies for documentation and testing/linting. Each of these is a python list and specify optional bundles of dependencies that are installable with bracket syntax: `pip install ccn-template[dependency_bundle]` (or `pip install .[dependency_bundle]` if we're installing from a local copy). See [docs](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#dependencies-optional-dependencies) for more info about how to specify dependencies.
