@@ -129,12 +129,12 @@ nav:
     
     - **search:** Enables a search functionality across the documentation.
     - **mkdocstrings:** Auto-generation of documentation from Python docstrings. For detailed configuration options, refer to the [mkdocstrings documentation](https://mkdocstrings.github.io/python/usage/?h=configu#configuration).
-      - **handlers:** Configure the handler that is responsible for loading and parsing source files.
-        - **python:** Specifies Python as the handler.
-          - **options:** Tunes the handler settings.
-            - **docstring_style:** Set the expected docstring convention.
-            - **show_source:** Allows for a source code link inclusion.
-            - **show_members:** Dictates the display order of members. 'Source' ensures they appear as ordered in the source code.
+        - **handlers:** Configure the handler that is responsible for loading and parsing source files.
+            - **python:** Specifies Python as the handler.
+                - **options:** Tunes the handler settings.
+                    - **docstring_style:** Set the expected docstring convention.
+                    - **show_source:** Allows for a source code link inclusion.
+                    - **show_members:** Dictates the display order of members. 'Source' ensures they appear as ordered in the source code.
     - **gen-files:** Automates the generation of specific documentation files during the build process.
          - **scripts:**  Create reference pages using the provided Python script.
     - **literate-nav:** Helps in generating a structured navigation for the documentation based on the content.
