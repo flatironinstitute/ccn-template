@@ -27,6 +27,11 @@ To use the OSF as a storage provider, do the following:
 - Prepare your files. I recommend grouping files into zip or tar archives based on how they will be used. For example, one archive containing all files required for the tests and another for those required for the documentation.
 - Upload your files. You can do this through the OSF website or via the [osfclient](https://github.com/osfclient/osfclient), a python command-line tool.
 - Click on your newly uploaded file and note the url. It will be formatted something like `https://osf.io/{KEY}`, where `{KEY}` is an alphanumeric string of length 5 (e.g., `spu5e`).
+
+    !!! warning
+    
+        This file URL will be different from that of your overall project! Make sure you're on the right page!
+
 - You can then download this file using one of the following, replacing `{KEY}` as appropriate. The `curl` command is simpler, but `curl` might not be present on Windows machines, while the `python` function should be platform independent (it requires one non-standard library: `tqdm`, which we use to get a nice progress bar).
     ```bash 
     curl -O -J -L https://osf.io/{KEY}/download
