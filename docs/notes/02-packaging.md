@@ -203,7 +203,16 @@ We provide two different Github actions for handling building and deployment: `d
 Do the following steps, regardless of whether you're using the pure python or CI build wheel action.
 
 1. Create an account on both [PyPI](https://pypi.org/) and [Test PyPI](https://test.pypi.org/). 
-2. Follow the steps on the [pypi docs](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) to create a PyPI project with a trusted publisher. **NOTE:** do this for both PyPI and Test PyPI --- it's recommended you always deploy to Test PyPI at first, to make sure things look the way you want, and then switch to PyPI when you're ready.
+2. Follow the steps on the [pypi docs](https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) to create a PyPI project with a trusted publisher.
+
+    !!! note
+    
+        Do this for both PyPI and Test PyPI --- it's recommended you always deploy to Test PyPI at first, to make sure things look the way you want, and then switch to PyPI when you're ready.
+    
+    !!! warning
+    
+        When you set up trusted publishers, you need to specify the name of the workflow file. This means that if you change the name of the workflow file, you'll have to do this over again!
+
 3. Copy the relevant `deploy` file to your repository.
 
 ### Understanding the action file
