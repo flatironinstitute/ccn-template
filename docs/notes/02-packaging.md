@@ -21,8 +21,9 @@ In this note, we'll discuss how to build and upload your library using a GitHub 
 ## Specifying project metadata and build instructions with pyproject.toml 
 
 We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-guide/package-structure-code/pyproject-toml-python-package-metadata.html) and use `pyproject.toml` to specify build requirements and metadata (rather than `setup.py`), a template for which is included in this repo. Metadata includes the authors, a brief description, homepage url, etc. which will all be rendered in the PyPI sidebar, for example. Build requirements include, at a minimum, the dependencies, and potentially other installation instructions to pass to `pip`.
+Here's a more in-depth look at the configurations featured in our `pyproject.toml` template.
 
-### 1. `[build-system]` 
+### 1. `[build-system]` and versioning
 
 `[build-system]` defines the build system requirements for the project, specifying the dependencies and build backend used for building and packaging. You can provide the following details:
 
@@ -38,6 +39,7 @@ We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-gui
 
    **Syntax example:**
    
+
    ```toml
    [build-system]
    requires = ["setuptools", "setuptools-scm[toml]"]  
@@ -45,9 +47,14 @@ We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-gui
    
    [project]
    dynamic = ["version"]
+
+   [tool.setuptools_scm]
+   write_to = "src/ccn_template/version.py"
+   version_scheme = 'python-simplified-semver'
+   local_scheme = 'no-local-version'
    ```
 
-   **Additional Informations on `setuptools-scm`:**
+   **Additional Information on `setuptools-scm`:**
 
    How it works:
 
@@ -63,6 +70,9 @@ We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-gui
 
    - [poetry](https://python-poetry.org/) or [flit](https://pypi.org/project/flit/)
 
+!!! info "Where does the version number come from?"
+    When using `setuptools-scm`, as above, the version number will be automatically determined at build-time and written to the specified file: `src/ccn_template/version.py`. We have included the line `from .version import __version__` in `src/ccn_template/__init__.py`, so that the version number can be accessed at `ccn_template.__version__`, as is typical for python. `setuptools-scm` automatically determines the version number based on the value of `version_scheme` and `local_scheme`. With the options specified in the example above (`'python-simplified-semver'` and `'no-local-version'`, respectively), if the commit being built from has a semantic version tag (see [workflow notes](./00-workflow.md#versioning)) and no changes, `setuptools-scm` will use the tag as the version number. If there have been changes, it will increment the patch version (the last number) and append `.devN`, where `N` is the number of commits since the last tag. See [setuptools-scm README](https://github.com/pypa/setuptools_scm/) for more details and, when installed, run `python -m setuptools_scm` to see what version number it determines for your package.
+   
 ### 2. `[project.optional-dependencies]`
 
 `[project.optional-dependencies]` specifies the optional dependencies for documentation and testing/linting. Each of these is a python list and specify optional bundles of dependencies that are installable with bracket syntax: `pip install ccn-template[dependency_bundle]` (or `pip install .[dependency_bundle]` if we're installing from a local copy). See [docs](https://packaging.python.org/en/latest/specifications/declaring-project-metadata/#dependencies-optional-dependencies) for more info about how to specify dependencies.
@@ -83,21 +93,23 @@ We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-gui
      - [pytest](https://docs.pytest.org/en/7.3.x/): Testing framework. It is a popular testing framework for Python that allows you to write and execute tests easily.
      - [flake8](https://flake8.pycqa.org/en/latest/): Code linter. It checks your Python code for style, potential errors, and adherence to coding conventions.
      - [pytest-cov](https://pytest-cov.readthedocs.io/en/latest/): Test coverage plugin for pytest. It integrates test coverage measurement into the pytest framework, providing coverage reports and analysis for your tests.
-
+     - [pydocstyle](http://www.pydocstyle.org/en/latest/index.html): Docstrings linter. It checks that the docstrings in your Python code adhere to a specified convention. This is critical for maintaining a consistent style across your project's documentation, as well as ensuring that tools which automatically generate documentation from docstrings function correctly, see the [documentation note](03-documentation.md#generating-reference-documentation-from-docstrings-).     
+  
   **Syntax example:**
-  ```toml
-    [project.optional-dependencies]
-    docs = [
-      'mkdocs',
-      'mkdocstrings[python]',
-      ...
-    ]
-    dev = [
-      "black", 
-      "isort",                       
-      ...
-    ]
-  ```
+  
+```toml
+[project.optional-dependencies]
+docs = [
+ 'mkdocs',
+ 'mkdocstrings[python]',
+ # ...
+]
+dev = [
+ "black", 
+ "isort",                       
+ # ...
+]
+```
 
 ### 3. `[tool.pytest.ini_options]` 
 
@@ -107,15 +119,28 @@ We follow the advice of [pyopensci](https://www.pyopensci.org/python-package-gui
    - `testpaths`: It specifies the directories to search for tests.
    
   **Syntax Example:**
-  ```toml
-  [tool.pytest.ini_options]
-  addopts = "--cov=ccn_template"
-  testpaths = ["tests"]
-  ```
+```toml
+[tool.pytest.ini_options]
+addopts = "--cov=ccn_template"
+testpaths = ["tests"]
+```
 
-  **Additional Informations:**
+  **Additional Information:**
   
   See the dedicated `pytest` [documentation](https://docs.pytest.org/en/latest/reference/reference.html#ini-options-ref) for detailed informations.
+
+
+### 4. `[tool.pydocstyle]`
+
+`[tool.pydocstyle]`: The additional command-line options for pydocstyle. These options will be added by default when running `pydocstyle`. We recommend to set:
+
+   - `convention`: It defines which conventions should be followed by the docstrings. Options include [numpydoc](https://github.com/numpy/numpydoc), [google](https://google.github.io/styleguide/pyguide.html), and [pep257](http://www.python.org/dev/peps/pep-0257/).
+
+**Syntax Example:**
+```toml
+[tool.pydocstyle]
+convention = "numpy"                # Convention for linting (numpy, google, pep257)
+```
    
 ## Manually building and deploying
 
