@@ -131,3 +131,13 @@ Automating this procedure offers multiple benefits:
 
 However, automatic generation also presents a caveat: it makes customizing the code referencing process more challenging. If you need to modify the layout of code references, you'll need to alter the `gen_ref_pages.py` script. In contrast, manual referencing offers the flexibility to customize the layout of specific modules by editing the `references.md` file or creating a distinct markdown file for each module and customizing it as needed. If you wish to do this manually, consult the [mkdocstrings documentation](https://mkdocstrings.github.io/https://mkdocstrings.github.io/).
 
+## LaTex Equation Rendering with `Material for MkDocs`
+
+Many scientific packages benefit from documentation pages that elucidate the mathematical concepts supporting 
+their algorithmic implementations.
+One common challenge is that equation rendering in browsers can often be slow and lack elegance.
+If you choose [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/), a very popular and well maintained 
+theme for MkDocs, you can seamlessly integrate with the [KaTeX](https://katex.org/) library, ensuring swift and elegant
+rendering of LaTeX equations in the browser.
+Here is how you can set it up,
+
