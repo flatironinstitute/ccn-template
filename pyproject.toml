@@ -28,7 +28,7 @@ docs = [
     'mkdocs_gen_files',
     'mkdocs_literate_nav',
     'mkdocs-gallery',
-    'pillow'
+    'pillow',
 ]
 dev = [
     "black",                        # Code formatter
