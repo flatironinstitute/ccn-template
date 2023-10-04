@@ -8,8 +8,15 @@ theme:
     features:
       - navigation.tabs
 plugins:
-    - search                           # make sure the search plugin is still enabled
-    - mkdocstrings                     # plugin for generating documentation from Python docstrings
+    - search                           # make sure the search plugin is enabled
+    - mkdocstrings:                    # plugin for generating documentation from Python docstrings
+        handlers:                      # handler is responsible for loading and parsing source files
+          python:                      # set handler is for Python
+            options:                   # configuration of options for the Python handler
+              docstring_style: numpy   # style of docstrings (convention followed)
+              show_source: true        # include a link to the source code
+              show_members: source     # configures the order in which members (methods, attributes, etc.) are displayed.
+                                       # If set to 'source', it means the order in the source code will be maintained.
     - gen-files:
         scripts:
             - docs/gen_ref_pages.py     # script for generating reference pages
