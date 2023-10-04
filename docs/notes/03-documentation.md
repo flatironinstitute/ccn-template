@@ -121,7 +121,7 @@ nav:
   - Code References: reference/
 ``` 
 
-## Why automate?
+### Why automate?
 
 Automating this procedure offers multiple benefits:
 
@@ -141,3 +141,4 @@ theme for MkDocs, you can seamlessly integrate with the [KaTeX](https://katex.or
 rendering of LaTeX equations in the browser.
 Here is how you can set it up,
 
+- Enjoy LaTex equation rendering: $i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r}, t) = \hat{H} \Psi(\mathbf{r}, t)$
