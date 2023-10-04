@@ -20,10 +20,15 @@ The [Open Science Framework](https://osf.io/) is an open platform for managing r
     
     See [the repository of plenoptic presentations](https://github.com/LabForComputationalVision/plenoptic_presentations#assets) for an example of how this strategy is used, both interactively for the user and in Github actions.
 
+!!! example
+    
+    See [this example](../../generated/gallery/plot_osf/) to see how to do the following in a cross-platform way using Python.
+
 To use the OSF as a storage provider, do the following:
 
 - If you do not have an account, create one [on the OSF website](https://osf.io).
 - Create a project for your library. I recommend having a single project per library, to have everything in one place.
+- Make the project public. OSF projects are private by default, but we need the project to be public so we can download its files without requiring authentication.
 - Prepare your files. I recommend grouping files into zip or tar archives based on how they will be used. For example, one archive containing all files required for the tests and another for those required for the documentation.
 - Upload your files. You can do this through the OSF website or via the [osfclient](https://github.com/osfclient/osfclient), a python command-line tool.
 - Click on your newly uploaded file and note the url. It will be formatted something like `https://osf.io/{KEY}`, where `{KEY}` is an alphanumeric string of length 5 (e.g., `spu5e`).
@@ -32,80 +37,12 @@ To use the OSF as a storage provider, do the following:
     
         This file URL will be different from that of your overall project! Make sure you're on the right page!
 
-- You can then download this file using one of the following, replacing `{KEY}` as appropriate. The `curl` command is simpler, but `curl` might not be present on Windows machines, while the `python` function should be platform independent (it requires one non-standard library: `tqdm`, which we use to get a nice progress bar).
+- You can then download this file using curl, replacing `{KEY}` as appropriate. Note that `curl` might not be present on Windows machines.
     ```bash 
     curl -O -J -L https://osf.io/{KEY}/download
     ```
-    
-    ```python
-    import requests
-    import math
-    from tqdm import tqdm
-    def download_url(url: str = "https://osf.io/{KEY}/download",
-                     destination_path: str = "./assets.tar.gz"):
-        """Helper function to download `url` to `destination_path`
-        """
-        # Streaming, so we can iterate over the response.
-        r = requests.get(url, stream=True)
-        # Total size in bytes.
-        total_size = int(r.headers.get('content-length', 0))
-        block_size = 1024*1024
-        wrote = 0
-        with open(destination_path, 'wb') as f:
-            for data in tqdm(r.iter_content(block_size), unit='MB',
-                             unit_scale=True,
-                             total=math.ceil(total_size//block_size)):
-                wrote += len(data)
-                f.write(data)
-        if total_size != 0 and wrote != total_size:
-            raise Exception(f"Error downloading from {url}!")
-    ```
 
-- You'll then need to extract and arrange your assets. If you used `tar` (rather than `zip`), you can use one of the following:
+- You'll then need to extract and arrange your assets. If you used `tar` (rather than `zip`), you can use the following:
     ```bash
     tar xvf PATH
     ```
-
-    ```python
-    import tarfile
-    import os
-    def extract_tar(path: str = "./assets.tar.gz"):
-        """Helper function to extract tarballs
-        """
-        with tarfile.open(path) as f:
-            f.extractall(os.path.dirname(path))
-        os.remove(path)
-    ```
-    
-- You may also want to programmatically check the date your file has been modified on the OSF (to see if you need to update it again). The following python function will get the data (but not the time), again replacing `{KEY}` as above:
-
-    ```python
-    def _get_date_modified(file_url: str = "https://osf.io/{KEY}"):
-        """Gets date modified for OSF object
-        """
-        r = requests.get(f"{file_url}/metadata?format=datacite-json")
-        meta = json.loads(r.text)
-        mod = [d for d in meta['dates'] if d['dateType'] == 'Updated']
-        if len(mod) != 1:
-            raise Exception(f"Unable to find date modified for {file_url}!")
-        return mod[0]['date']
-    ```
-    
-- Finally, if you have multiple files used by a single library, it might be helpful to maintain a dictionary linking the file names to the alphanumeric keys required in the url. One such example, from [plenoptic](https://github.com/LabForComputationalVision/plenoptic/):
-
-     ```python
-     OSF_URL = {'plenoptic-test-files.tar.gz': 'q9kn8',
-                'ssim_images.tar.gz': 'j65tw',
-                'ssim_analysis.mat': 'ndtc7',
-                'msssim_images.tar.gz': '5fuba',
-                'MAD_results.tar.gz': 'jwcsr',
-                'portilla_simoncelli_matlab_test_vectors.tar.gz': 'qtn5y',
-                'portilla_simoncelli_test_vectors.tar.gz': '8r2gq',
-                'portilla_simoncelli_images.tar.gz':'eqr3t',
-                'portilla_simoncelli_synthesize.npz': 'a7p9r',
-                'portilla_simoncelli_synthesize_torch_v1.12.0.npz': 'gbv8e',
-                'portilla_simoncelli_synthesize_gpu.npz': 'tn4y8',
-                'portilla_simoncelli_scales.npz': 'xhwv3'}
-     ```
-     
-     Then, to use the functions above, simply replace `{KEY}` with `OSF_URL[filename]`.
