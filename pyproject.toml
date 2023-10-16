@@ -27,7 +27,8 @@ docs = [
     'mkdocs_section_index',
     'mkdocs_gen_files',
     'mkdocs_literate_nav',
-    'mkdocs-gallery'
+    'mkdocs-gallery',
+    'pillow'
 ]
 dev = [
     "black",                        # Code formatter
@@ -35,6 +36,7 @@ dev = [
     "pytest",                       # Testing framework
     "flake8",                       # Code linter
     "pytest-cov",                   # Test coverage plugin for pytest
+    "pydocstyle",                    # Docstrings linter
 ]
 
 [project.urls]
@@ -45,7 +47,19 @@ write_to = "src/ccn_template/version.py"
 version_scheme = 'python-simplified-semver'
 local_scheme = 'no-local-version'
 
+[tool.black]
+exclude = '/version\.py$'
+
 [tool.pytest.ini_options]
 # addopts: Additional command-line options for pytest.
 addopts = "--cov=ccn_template"
 testpaths = ["tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "if __name__ == .__main__.:"    # Exclude from coverage
+]
+
+[tool.pydocstyle]
+convention = "numpy"                   # Convention for linting (numpy, google, pep257)
+match = "^(?!version\\.py$).*\\.py$"   # This matches everything that ends with .py, except for version.py
