@@ -150,7 +150,7 @@ Automating this procedure offers multiple benefits:
 
 However, automatic generation also presents a caveat: it makes customizing the code referencing process more challenging. If you need to modify the layout of code references, you'll need to alter the `gen_ref_pages.py` script. In contrast, manual referencing offers the flexibility to customize the layout of specific modules by editing the `references.md` file or creating a distinct markdown file for each module and customizing it as needed. If you wish to do this manually, consult the [mkdocstrings documentation](https://mkdocstrings.github.io/https://mkdocstrings.github.io/).
 
-## LaTex Equation Rendering with *Material for MkDocs*
+## LaTeX Equation Rendering with *Material for MkDocs*
 
 Many scientific packages benefit from documentation pages that illustrates the mathematical concepts supporting 
 the algorithmic implementations.
@@ -184,6 +184,6 @@ Here is how you can set it up,
    ```
 4. Enjoy LaTex equation rendering: $i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r}, t) = \hat{H} \Psi(\mathbf{r}, t)$
 
-For more information, see the [Math](https://squidfunk.github.io/mkdocs-material/reference/math/?h=katex#katex) `Material for MkDocs` page.
+For more information, see the [Math](https://squidfunk.github.io/mkdocs-material/reference/math/?h=katex#katex) *Material for MkDocs* page.
 
 Finally, see [here](../../generated/gallery/plot_latex_equations/) for a minimal example on how to incorporate LaTeX equations into your tutorials.
