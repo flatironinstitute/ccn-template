@@ -133,12 +133,14 @@ However, automatic generation also presents a caveat: it makes customizing the c
 
 ## LaTex Equation Rendering with `Material for MkDocs`
 
-Many scientific packages benefit from documentation pages that elucidate the mathematical concepts supporting 
-their algorithmic implementations.
+Many scientific packages benefit from documentation pages that illustrates the mathematical concepts supporting 
+the algorithmic implementations.
 One common challenge is that equation rendering in browsers can often be slow and lack elegance.
 If you choose [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/), a very popular and well maintained 
 theme for MkDocs, you can seamlessly integrate with the [KaTeX](https://katex.org/) library, ensuring swift and elegant
 rendering of LaTeX equations in the browser.
 Here is how you can set it up,
+
+1. Copy the files
 
 - Enjoy LaTex equation rendering: $i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r}, t) = \hat{H} \Psi(\mathbf{r}, t)$
