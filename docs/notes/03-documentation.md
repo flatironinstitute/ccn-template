@@ -150,7 +150,7 @@ Automating this procedure offers multiple benefits:
 
 However, automatic generation also presents a caveat: it makes customizing the code referencing process more challenging. If you need to modify the layout of code references, you'll need to alter the `gen_ref_pages.py` script. In contrast, manual referencing offers the flexibility to customize the layout of specific modules by editing the `references.md` file or creating a distinct markdown file for each module and customizing it as needed. If you wish to do this manually, consult the [mkdocstrings documentation](https://mkdocstrings.github.io/https://mkdocstrings.github.io/).
 
-## LaTex Equation Rendering with `Material for MkDocs`
+## LaTex Equation Rendering with *Material for MkDocs*
 
 Many scientific packages benefit from documentation pages that illustrates the mathematical concepts supporting 
 the algorithmic implementations.
@@ -160,6 +160,30 @@ theme for MkDocs, you can seamlessly integrate with the [KaTeX](https://katex.or
 rendering of LaTeX equations in the browser.
 Here is how you can set it up,
 
-1. Copy the files
+1. In your project, create a sub-folder `docs/javascripts`.
+2. Copy the JavaScript configuration file `katex.js` to this folder. In essence, the script specifies the different types of delimiters should be recognized as enclosing LaTeX notation.
+   ```javascript
+   // Content of the `katex.js` file
+   document$.subscribe(({ body }) => {
+     renderMathInElement(body, {
+       delimiters: [
+         { left: "$$",  right: "$$",  display: true },
+         { left: "$",   right: "$",   display: false },
+         { left: "\\(", right: "\\)", display: false },
+         { left: "\\[", right: "\\]", display: true },
+       ],
+     })
+   })
+   ```
+3. Modify the `mkdocs.yml` configuration by adding the field
+   ```yaml
+   extra_javascript: # Including necessary JavaScript and CSS files for rendering KaTeX math equations
+     - javascripts/katex.js
+     - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js
+     - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+   ```
+4. Enjoy LaTex equation rendering: $i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r}, t) = \hat{H} \Psi(\mathbf{r}, t)$
 
-- Enjoy LaTex equation rendering: $i\hbar \frac{\partial}{\partial t} \Psi(\mathbf{r}, t) = \hat{H} \Psi(\mathbf{r}, t)$
+For more information, see the [Math](https://squidfunk.github.io/mkdocs-material/reference/math/?h=katex#katex) `Material for MkDocs` page.
+
+Finally, see [here](../../generated/gallery/plot_latex_equations/) for a minimal example on how to incorporate LaTeX equations into your tutorials.
