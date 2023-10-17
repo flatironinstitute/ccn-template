@@ -9,6 +9,15 @@ Rationale:
 - MkDocs supports markdown out-of-the-box, which is much better than ReST
 - readthedocs supports building documentation for PRs, which is very helpful.
 
+You can customize the `mkdocs-gallery` configuration with the following procedure:
+
+1. Edit the `conf` dictionary defined in the `docs/gallery_conf.py` script. Here we describe a few useful configuration options, see the note below for additional information.
+   -`"within_subsection_order"`: Ordering criteria used to sort the gallery subsections. Available options are defined in `mkdocs_gallery/sorting.py`. 
+2. 
+
+!!! note
+    Unfortunately, the different configuration option are not thoroughly described in the `mkdocs-gallery` documentation. 
+
 ## Build documentation locally
 
 To build the documentation on your local machine, install the necessary

@@ -24,6 +24,7 @@ plugins:
           nav_file: docs/SUMMARY.md     # navigation file for literate navigation
     - section-index                    # plugin for creating section index
     - gallery:
+        conf_script: docs/gallery_conf.py     # set custom configurations for mkdocs gallery
         examples_dirs: docs/examples          # path to your example scripts
         gallery_dirs: docs/generated/gallery  # where to save generated gallery
 nav:
