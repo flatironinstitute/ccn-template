@@ -7,6 +7,13 @@ on:
     branches:
     - main
     - development
+    # optional section, "ready_for_review" means it will not run on draft PRs
+    types:
+    - opened
+    - reopened
+    - synchronize
+    - ready_for_review
+
 
 jobs:
   tox:
