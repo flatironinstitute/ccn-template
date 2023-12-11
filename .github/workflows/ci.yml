@@ -7,6 +7,14 @@ on:
     branches:
     - main
     - development
+    # optional section, "ready_for_review" means it will not run on draft PRs
+    # see this page for all pull_request activity "types" options: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request 
+    types:
+    - opened
+    - reopened
+    - synchronize
+    - ready_for_review
+
 
 jobs:
   tox:
