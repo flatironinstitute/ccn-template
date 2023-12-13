@@ -30,7 +30,6 @@ jobs:
       - name: Run tests and create coverage report
         run: |
           pytest --cov-report=xml --cov-report=term tests/
-          coverage xml
 
       # upload coverage to codecov, only if this is a push to main
       - name: Upload coverage to codecov if push to main
