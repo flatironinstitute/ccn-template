@@ -1,0 +1,42 @@
+name: coverage
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    - development
+  pull_request:
+    branches:
+    - main
+    - development
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+
+      - name: Install packages needed for tests and coverage
+        run: pip install pytest pytest-cov
+      
+      - name: Run tests and create coverage report
+        run: |
+          pytest --cov-report=xml --cov-report=term tests/
+          coverage xml
+
+      # upload coverage to codecov, only if this is a push to main
+      - name: Upload coverage to codecov if push to main
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          flags: unittests
