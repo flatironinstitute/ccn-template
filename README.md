@@ -1,7 +1,8 @@
 ![LOGO](CCN-logo-wText.png)
 
 
-[![ci-ccn-template](https://github.com/flatironinstitute/ccn-template/actions/workflows/ci.yml/badge.svg)](https://github.com/flatironinstitute/ccn-template/actions/workflows/main.yml)
+[![ci-ccn-template](https://github.com/flatironinstitute/ccn-template/actions/workflows/ci.yml/badge.svg)](https://github.com/flatironinstitute/ccn-template/actions/workflows/main.yml) [![codecov](https://codecov.io/github/flatironinstitute/ccn-template/graph/badge.svg?token=IRAYDW81ER)](https://codecov.io/github/flatironinstitute/ccn-template)
+
 # ccn-template
 
 Template repository for CCN software projects
