@@ -86,6 +86,51 @@ If you were unable to give readthedocs access to your GitHub documentation, you
 can use readthedocs' [preview GitHub
 action](https://github.com/readthedocs/actions) to post the docs link to the PR.
 
+## Set Up `mkdocs-gallery`
+
+Follow these steps to set up `mkdocs-gallery`:
+
+1. Add `mkdocs-gallery` as a `docs` optional dependency in `pyproject.toml`.
+   ```toml
+   [project.optional-dependencies]
+   docs = [
+       #... other dependencies
+       'mkdocs-gallery',
+   ]
+   ```
+
+2. Install the `docs` dependency locally using the following command:
+   ```shell
+   pip install -e .[docs]
+   ```
+
+3. Update the plugin list in `mkdocs.yml` to include `mkdocs-gallery`. Specify the directory of the configuration script, the directory (or directories) that contain your example scripts, and the directory that will house the gallery cache.
+   ```yaml
+   # from mkdocs.yml
+   # ... other configurations
+   plugins:
+      # ...other plugins
+      - gallery:
+         conf_script: docs/gallery_conf.py
+         examples_dirs: docs/examples
+         gallery_dirs: docs/generated/gallery
+   ```
+
+4. Modify the `conf` dictionary in `docs/gallery_conf.py` in order to specify you custom configuration, see the "Additional Custom Configurations" box for additional information. 
+
+!!! info "`mkdocs-gallery` Configurations"  
+    - **conf_script**: Specify custom configurations for mkdocs gallery.
+    - **examples_dirs**: Path to your example scripts' folders, this may be a single folder or a list of folders.
+    - **gallery_dirs**: Location for the generated gallery cache.
+
+!!! info "Additional Custom Configurations"
+    Below are two helpful configuration options that can be set by editing `docs/gallery_conf.py`:
+
+     - **`conf["within_subsection_order"]`**: This determines the order of the gallery subsections. You can find available options in [`mkdocs_gallery/sorting.py`](https://github.com/smarie/mkdocs-gallery/blob/main/src/mkdocs_gallery/sorting.py). For the `ccn-template` repository, we use the `FileNameSortKey` sorting, which arranges examples alphabetically by script name.
+     - **`conf["filename_pattern"]`**: This represents the naming pattern of Python scripts. If a Python script from any of the directories under `plugin:gallery:example_dirs` in `mkdocs.yml` matches this pattern, it will run when the documentation is built. For `ccn-template`, we use the pattern `re.escape(os.sep) + "run"` and set `example_dirs` to `docs/examples`. This means any Python script in `docs/examples` that starts with `run` will be executed.
+
+    The `mkdocs-gallery` documentation does not extensively cover all configuration options. For further configuration details not mentioned here, refer to the `DEFAULT_GALLERY_CONF` dictionary in [`mkdocs_gallery/gen_gallery.py`](https://github.com/smarie/mkdocs-gallery/blob/main/src/mkdocs_gallery/gen_gallery.py). This means you might need to reverse-engineer the available configuration options, their functionalities, and their valid settings.
+
 ## Generating Reference Documentation From Docstrings 
 
 Reference documentation consists of technical descriptions of the code and how to use it. This material is rarely read (unlike tutorials or examples), and is instead consulted when users need clarity on specific issues. Fortunately, you've already been writing reference documentation in the form of docstrings. Here, we describe how to automatically construct the reference documentation from these docstrings, using several plugins to `mkdocs`. The following requries that your docstrings adhere to one of the docstring standards, see the [docstrings](04-docstrings.md) note for more details.
